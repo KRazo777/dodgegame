@@ -1,7 +1,7 @@
 using DodgeGameBackend.Server.Packet;
 using Riptide;
 
-namespace DodgeGameBackend.Server;
+namespace DodgeGameBackend.DodgeGame.Server;
 
 public class ConnectionHandler
 {

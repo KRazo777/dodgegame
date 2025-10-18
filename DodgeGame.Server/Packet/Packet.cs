@@ -1,4 +1,5 @@
 using Riptide;
+using Client = DodgeGameBackend.DodgeGame.Server.Client;
 
 namespace DodgeGameBackend.Server.Packet;
 
