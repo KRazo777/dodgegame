@@ -1,4 +1,4 @@
-namespace DodgeGameBackend.Server.Packet;
+namespace DodgeGameBackend.DodgeGame.Server.Networking;
 
 public class PacketHandler
 {

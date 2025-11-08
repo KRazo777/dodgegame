@@ -1,5 +1,7 @@
-using DodgeGameBackend.Server.Packet;
+using DodgeGameBackend.DodgeGame.Server.Manager;
+using DodgeGameBackend.DodgeGame.Server.Networking;
 using Riptide;
+using Client = DodgeGameBackend.DodgeGame.Server.Manager.Client;
 
 namespace DodgeGameBackend.DodgeGame.Server;
 

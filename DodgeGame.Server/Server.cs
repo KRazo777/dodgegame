@@ -1,25 +1,25 @@
-﻿using DodgeGameBackend.Server;
+﻿using DodgeGameBackend.DodgeGame.Server.Game;
 using Riptide.Utils;
 
 namespace DodgeGameBackend.DodgeGame.Server;
 
 public class Server
 {
-    
+    public static ConnectionHandler ConnectionHandler { get; } = new();
+    public static Dictionary<string, GameRoom> GameRooms { get; } = new();
     public static void Main(string[] args)
     {
         RiptideLogger.Initialize(Console.WriteLine, Console.WriteLine, Console.WriteLine, Console.WriteLine, false);
         var server = new Riptide.Server();
-        var connectionHandler = new ConnectionHandler();
         
-        server.Start(2442, UInt16.MaxValue);
+        server.Start(2442, ushort.MaxValue);
 
         while (true)
         {
             server.Update();
-            server.ClientConnected += connectionHandler.OnClientConnect;
-            server.ClientDisconnected += connectionHandler.OnClientDisconnect;
-            server.MessageReceived += connectionHandler.OnMessageReceived;
+            server.ClientConnected += ConnectionHandler.OnClientConnect;
+            server.ClientDisconnected += ConnectionHandler.OnClientDisconnect;
+            server.MessageReceived += ConnectionHandler.OnMessageReceived;
         }
     }
 }

@@ -1,7 +1,7 @@
 using Riptide;
-using Client = DodgeGameBackend.DodgeGame.Server.Client;
+using Client = DodgeGameBackend.DodgeGame.Server.Manager.Client;
 
-namespace DodgeGameBackend.Server.Packet;
+namespace DodgeGameBackend.DodgeGame.Server.Networking;
 
 public abstract class Packet
 {
