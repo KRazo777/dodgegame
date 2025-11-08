@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DodgeGame.Common.Game;
 using Object = UnityEngine.Object;
 
 public class ButtonSceneChanger : MonoBehaviour
