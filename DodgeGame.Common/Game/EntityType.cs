@@ -1,6 +1,7 @@
-namespace DodgeGame.Common.Game;
-
-public enum EntityType
+namespace DodgeGame.Common.Game
 {
-    Player, Bullet
+    public enum EntityType
+    {
+        Player, Bullet
+    }
 }

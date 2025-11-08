@@ -1,17 +1,18 @@
 using System.Numerics;
 
-namespace DodgeGame.Common.Game;
-
-public abstract class Entity
+namespace DodgeGame.Common.Game
 {
-    private string UniqueId { get; }
-    private EntityType EntityType { get; }
-    private Vector2 _position { get; set; }
-    private Vector2 _velocity { get; set; }
-
-    protected Entity(string uniqueId, EntityType entityType)
+    public abstract class Entity
     {
-        UniqueId = uniqueId;
-        EntityType = entityType;
+        private string UniqueId { get; }
+        private EntityType EntityType { get; }
+        private Vector2 _position { get; set; }
+        private Vector2 _velocity { get; set; }
+
+        protected Entity(string uniqueId, EntityType entityType)
+        {
+            UniqueId = uniqueId;
+            EntityType = entityType;
+        }
     }
 }

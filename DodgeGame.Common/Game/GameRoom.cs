@@ -1,13 +1,16 @@
-namespace DodgeGame.Common.Game;
+using System.Collections.Generic;
 
-public class GameRoom
+namespace DodgeGame.Common.Game
 {
-    public Dictionary<string, Entity> Entities { get; } = new();
-    public Dictionary<string, Player> Players { get; } = new();
+    public class GameRoom
+    {
+        public Dictionary<string, Entity> Entities { get; } = new Dictionary<string, Entity>();
+        public Dictionary<string, Player> Players { get; } = new Dictionary<string, Player>();
     
-    public string HostUniqueId { get; }
-    public string RoomId { get; }
-    public string RoomName { get; set; }
-    public string RoomPassword { get; set; }
-    public bool IsPrivate { get; set; }
+        public string HostUniqueId { get; }
+        public string RoomId { get; }
+        public string RoomName { get; set; }
+        public string RoomPassword { get; set; }
+        public bool IsPrivate { get; set; }
+    }
 }

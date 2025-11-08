@@ -1,6 +1,12 @@
-namespace DodgeGame.Common.Game;
-
-public class Bullet(string uniqueId, string ownerUniqueId, EntityType entityType) : Entity(uniqueId, entityType)
+namespace DodgeGame.Common.Game
 {
-    public readonly string OwnerUniqueId = ownerUniqueId;
+    public class Bullet : Entity
+    {
+        public readonly string OwnerUniqueId;
+
+        public Bullet(string uniqueId, string ownerUniqueId, EntityType entityType) : base(uniqueId, entityType)
+        {
+            OwnerUniqueId = ownerUniqueId;
+        }
+    }
 }
