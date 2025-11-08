@@ -1,6 +1,6 @@
-using DodgeGameBackend.DodgeGame.Server.Game;
+using DodgeGame.Common.Game;
 
-namespace DodgeGameBackend.DodgeGame.Server.Manager;
+namespace DodgeGame.Common;
 
 public class User(string uniqueId, string username, long dateCreated)
 {

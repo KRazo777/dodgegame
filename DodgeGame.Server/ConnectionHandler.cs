@@ -1,9 +1,8 @@
-using DodgeGameBackend.DodgeGame.Server.Manager;
-using DodgeGameBackend.DodgeGame.Server.Networking;
+using DodgeGame.Server.Networking;
 using Riptide;
-using Client = DodgeGameBackend.DodgeGame.Server.Manager.Client;
+using Client = DodgeGame.Server.Manager.Client;
 
-namespace DodgeGameBackend.DodgeGame.Server;
+namespace DodgeGame.Server;
 
 public class ConnectionHandler
 {

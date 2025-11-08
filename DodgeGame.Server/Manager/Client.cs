@@ -1,6 +1,7 @@
 using Riptide;
+using DodgeGame.Common;
 
-namespace DodgeGameBackend.DodgeGame.Server.Manager;
+namespace DodgeGame.Server.Manager;
 
 public class Client(Connection connection)
 {

@@ -1,7 +1,7 @@
-﻿using DodgeGameBackend.DodgeGame.Server.Game;
+﻿using DodgeGame.Common.Game;
 using Riptide.Utils;
 
-namespace DodgeGameBackend.DodgeGame.Server;
+namespace DodgeGame.Server;
 
 public class Server
 {

@@ -1,4 +1,4 @@
-namespace DodgeGameBackend.DodgeGame.Server.Game;
+namespace DodgeGame.Common.Game;
 
 public class Bullet(string uniqueId, string ownerUniqueId, EntityType entityType) : Entity(uniqueId, entityType)
 {

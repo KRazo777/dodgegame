@@ -1,4 +1,4 @@
-namespace DodgeGameBackend.DodgeGame.Server.Game;
+namespace DodgeGame.Common.Game;
 
 public class Player(string uniqueId, string name, EntityType entityType) : Entity(uniqueId, entityType)
 {

@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace DodgeGameBackend.DodgeGame.Server.Game;
+namespace DodgeGame.Common.Game;
 
 public abstract class Entity
 {
