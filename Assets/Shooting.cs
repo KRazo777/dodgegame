@@ -38,7 +38,7 @@ public class Shooting : MonoBehaviour
         }
 
         // Handles the shooting of the bullet
-        if (Input.GetMouseButton(0) && canShoot)
+        if ((Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space)) && canShoot)
         {
             canShoot = false;
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
