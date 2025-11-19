@@ -1,0 +1,585 @@
+fileFormatVersion: 2
+guid: 5ec7fd4240239b84ab5308f66d42ef29
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 410843360732373558
+    second: dottedCrossgreen_0
+  - first:
+      213: -3635230289503245133
+    second: dottedCrossgreen_1
+  - first:
+      213: -315987736454054456
+    second: dottedCrossgreen_2
+  - first:
+      213: 5086463104174499546
+    second: dottedCrossgreen_3
+  - first:
+      213: -6472711253688584371
+    second: dottedCrossgreen_4
+  - first:
+      213: 4315003909931168374
+    second: dottedCrossgreen_5
+  - first:
+      213: 1196852758335455964
+    second: dottedCrossgreen_6
+  - first:
+      213: -4909206680622962452
+    second: dottedCrossgreen_7
+  - first:
+      213: -4345207774734994796
+    second: dottedCrossgreen_8
+  - first:
+      213: -7895758227952692494
+    second: dottedCrossgreen_9
+  - first:
+      213: 6225708637740876720
+    second: dottedCrossgreen_10
+  - first:
+      213: -4776170105113873191
+    second: dottedCrossgreen_11
+  - first:
+      213: 4273114961620324575
+    second: dottedCrossgreen_12
+  - first:
+      213: -5324639182724972561
+    second: dottedCrossgreen_13
+  - first:
+      213: 5627964115319807580
+    second: dottedCrossgreen_14
+  - first:
+      213: -91629931410822819
+    second: dottedCrossgreen_15
+  - first:
+      213: -6346142260356034512
+    second: dottedCrossgreen_16
+  - first:
+      213: -576459711264931415
+    second: dottedCrossgreen_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: dottedCrossgreen_0
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 259
+        width: 14
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 632e7ce1cdb93b500800000000000000
+      internalID: 410843360732373558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_1
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 239
+        width: 49
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bc2b6ddf411d8dc0800000000000000
+      internalID: -3635230289503245133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_2
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 239
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cdb64fe3d26d9bf0800000000000000
+      internalID: -315987736454054456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_3
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 239
+        width: 49
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad6a3777e3fb69640800000000000000
+      internalID: 5086463104174499546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_4
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d47f73e986f4c26a0800000000000000
+      internalID: -6472711253688584371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_5
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 239
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6727ed7b139f1eb30800000000000000
+      internalID: 4315003909931168374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_6
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 239
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd208051e331c9010800000000000000
+      internalID: 1196852758335455964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_7
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 239
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce86e78b88efedbb0800000000000000
+      internalID: -4909206680622962452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_8
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 492b7affc88b2b3c0800000000000000
+      internalID: -4345207774734994796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_9
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f21386a9b1ac6290800000000000000
+      internalID: -7895758227952692494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_10
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 239
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b340a35509266650800000000000000
+      internalID: 6225708637740876720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_11
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d4f8d93892a7bdb0800000000000000
+      internalID: -4776170105113873191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_12
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd059cbea672d4b30800000000000000
+      internalID: 4273114961620324575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_13
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 239
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fef3d8cdfd41b16b0800000000000000
+      internalID: -5324639182724972561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_14
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5e584e6b8b8a1e40800000000000000
+      internalID: 5627964115319807580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_15
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d59e67710177abef0800000000000000
+      internalID: -91629931410822819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_16
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 030526dcc39fde7a0800000000000000
+      internalID: -6346142260356034512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossgreen_17
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 187
+        width: 15
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a1cab262f00008f0800000000000000
+      internalID: -576459711264931415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      dottedCrossgreen_0: 410843360732373558
+      dottedCrossgreen_1: -3635230289503245133
+      dottedCrossgreen_10: 6225708637740876720
+      dottedCrossgreen_11: -4776170105113873191
+      dottedCrossgreen_12: 4273114961620324575
+      dottedCrossgreen_13: -5324639182724972561
+      dottedCrossgreen_14: 5627964115319807580
+      dottedCrossgreen_15: -91629931410822819
+      dottedCrossgreen_16: -6346142260356034512
+      dottedCrossgreen_17: -576459711264931415
+      dottedCrossgreen_2: -315987736454054456
+      dottedCrossgreen_3: 5086463104174499546
+      dottedCrossgreen_4: -6472711253688584371
+      dottedCrossgreen_5: 4315003909931168374
+      dottedCrossgreen_6: 1196852758335455964
+      dottedCrossgreen_7: -4909206680622962452
+      dottedCrossgreen_8: -4345207774734994796
+      dottedCrossgreen_9: -7895758227952692494
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

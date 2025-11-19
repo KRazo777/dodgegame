@@ -1,0 +1,585 @@
+fileFormatVersion: 2
+guid: 994264f24dd49ad44abde87ef1d88603
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2776412337893975749
+    second: dottedCrossyellow_0
+  - first:
+      213: -4202193979400530028
+    second: dottedCrossyellow_1
+  - first:
+      213: 2574786491483538303
+    second: dottedCrossyellow_2
+  - first:
+      213: -3019078165419717514
+    second: dottedCrossyellow_3
+  - first:
+      213: -6991518098710885964
+    second: dottedCrossyellow_4
+  - first:
+      213: -6611042760890844637
+    second: dottedCrossyellow_5
+  - first:
+      213: 8794146805865315339
+    second: dottedCrossyellow_6
+  - first:
+      213: -3022023379556280511
+    second: dottedCrossyellow_7
+  - first:
+      213: 3597823493479940419
+    second: dottedCrossyellow_8
+  - first:
+      213: -5729476741283636121
+    second: dottedCrossyellow_9
+  - first:
+      213: -5590831861235563239
+    second: dottedCrossyellow_10
+  - first:
+      213: -3338069867967714436
+    second: dottedCrossyellow_11
+  - first:
+      213: 7323271666337908805
+    second: dottedCrossyellow_12
+  - first:
+      213: -3422617568905430586
+    second: dottedCrossyellow_13
+  - first:
+      213: 4509377595480776184
+    second: dottedCrossyellow_14
+  - first:
+      213: 681868504323671847
+    second: dottedCrossyellow_15
+  - first:
+      213: 6535947784938997975
+    second: dottedCrossyellow_16
+  - first:
+      213: 3694270529131906502
+    second: dottedCrossyellow_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: dottedCrossyellow_0
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 259
+        width: 14
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3951d150b33879d0800000000000000
+      internalID: -2776412337893975749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_1
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 239
+        width: 49
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 497db8407decea5c0800000000000000
+      internalID: -4202193979400530028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_2
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 239
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f73c9551caa7bb320800000000000000
+      internalID: 2574786491483538303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_3
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 239
+        width: 49
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67c050187641a16d0800000000000000
+      internalID: -3019078165419717514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_4
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b98f95f45329fe90800000000000000
+      internalID: -6991518098710885964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_5
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 239
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32afe22c2abd044a0800000000000000
+      internalID: -6611042760890844637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_6
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 239
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0cfc323de51b0a70800000000000000
+      internalID: 8794146805865315339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_7
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 239
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1475f966fbd9f06d0800000000000000
+      internalID: -3022023379556280511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_8
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3414d6db7690ee130800000000000000
+      internalID: 3597823493479940419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_9
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76c1de6824fcc70b0800000000000000
+      internalID: -5729476741283636121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_10
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 239
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9154e103b006962b0800000000000000
+      internalID: -5590831861235563239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_11
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7b6954142bcca1d0800000000000000
+      internalID: -3338069867967714436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_12
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54801c9b7cc71a560800000000000000
+      internalID: 7323271666337908805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_13
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 239
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c97163747b6080d0800000000000000
+      internalID: -3422617568905430586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_14
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fd9cb80807849e30800000000000000
+      internalID: 4509377595480776184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_15
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7274dbfbacb767900800000000000000
+      internalID: 681868504323671847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_16
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 239
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d84ac7a1e954ba50800000000000000
+      internalID: 6535947784938997975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dottedCrossyellow_17
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 187
+        width: 15
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c50a11297fa44330800000000000000
+      internalID: 3694270529131906502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      dottedCrossyellow_0: -2776412337893975749
+      dottedCrossyellow_1: -4202193979400530028
+      dottedCrossyellow_10: -5590831861235563239
+      dottedCrossyellow_11: -3338069867967714436
+      dottedCrossyellow_12: 7323271666337908805
+      dottedCrossyellow_13: -3422617568905430586
+      dottedCrossyellow_14: 4509377595480776184
+      dottedCrossyellow_15: 681868504323671847
+      dottedCrossyellow_16: 6535947784938997975
+      dottedCrossyellow_17: 3694270529131906502
+      dottedCrossyellow_2: 2574786491483538303
+      dottedCrossyellow_3: -3019078165419717514
+      dottedCrossyellow_4: -6991518098710885964
+      dottedCrossyellow_5: -6611042760890844637
+      dottedCrossyellow_6: 8794146805865315339
+      dottedCrossyellow_7: -3022023379556280511
+      dottedCrossyellow_8: 3597823493479940419
+      dottedCrossyellow_9: -5729476741283636121
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
