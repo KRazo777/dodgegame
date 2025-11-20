@@ -39,11 +39,23 @@ public class BulletScript : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        bounceCount++;
-
-        if (bounceCount >= maxBounces)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Default") || 
+            collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            Destroy(gameObject);
+            
+            Vector2 direction = rb.linearVelocity.normalized;
+
+            rb.linearVelocity = direction * force;
+
+            if (bounceCount < 10) 
+            {
+                bounceCount++;
+            }
+            else 
+            {
+                Destroy(gameObject);
+            }
+            
         }
     }
 }
