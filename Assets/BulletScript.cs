@@ -10,6 +10,7 @@ public class BulletScript : MonoBehaviour
 
     private int bounceCount = 0;
     public int maxBounces = 5; 
+    private AudioSource bonksfx;
     void Start()
     {
         mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
@@ -20,6 +21,8 @@ public class BulletScript : MonoBehaviour
         Vector3 rotation = transform.position - mousePosition;
  
         rb.linearVelocity = new Vector2(direction.x, direction.y).normalized * force;
+
+        bonksfx = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -46,6 +49,8 @@ public class BulletScript : MonoBehaviour
             Vector2 direction = rb.linearVelocity.normalized;
 
             rb.linearVelocity = direction * force;
+
+            if (bonksfx != null) bonksfx.Play();
 
             if (bounceCount < 10) 
             {
