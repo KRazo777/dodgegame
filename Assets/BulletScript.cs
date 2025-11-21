@@ -8,6 +8,7 @@ public class BulletScript : MonoBehaviour
     private Rigidbody2D rb;
     public float force = 3f;
 
+    private AudioSource bonksfx;
     void Start()
     {
         mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
@@ -18,6 +19,8 @@ public class BulletScript : MonoBehaviour
         Vector3 rotation = transform.position - mousePosition;
  
         rb.linearVelocity = new Vector2(direction.x, direction.y).normalized * force;
+
+        bonksfx = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
