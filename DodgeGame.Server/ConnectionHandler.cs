@@ -19,7 +19,7 @@ public class ConnectionHandler
     {
         Connections[args.Client.Id] = new Client(args.Client);
     }
-    
+
     public void OnClientDisconnect(object? sender, ServerDisconnectedEventArgs args)
     {
         Connections.Remove(args.Client.Id);
@@ -43,19 +43,31 @@ public class ConnectionHandler
         packet.Process(client);
 
         // Handle acknowledgements for serverbound acknowledgements and pings.
-        if (messageId == PacketIds.Serverbound.Acknowledgement)
-        {
-            var ack = (AcknowledgementPacket)packet;
-            _outgoingPacketManager.HandleAcknowledgement(client.Identifier, ack.AcknowledgedSequenceId);
-            return;
-        }
+        // if (messageId == PacketIds.Serverbound.Acknowledgement)
+        // {
+        //     var ack = (AcknowledgementPacket)packet;
+        //     _outgoingPacketManager.HandleAcknowledgement(client.Identifier, ack.AcknowledgedSequenceId);
+        //     return;
+        // }
 
         if (messageId == PacketIds.Serverbound.Ping)
         {
             var pong = (PongPacket)packet;
             _outgoingPacketManager.HandleAcknowledgement(client.Identifier, pong.PingSequenceId);
             _lastClientPingAt[client.Identifier] = DateTime.UtcNow;
+        }
+
+        if (messageId == PacketIds.Serverbound.Movement)
+        {
+            var movement = (MovementPacket)packet;
+            var room = Server.GameRooms.Values.First(gameRoom => gameRoom.Players.ContainsKey(movement.UniqueId));
+            room.Players[movement.UniqueId].X = movement.X;
+            room.Players[movement.UniqueId].Y = movement.Y;
             
+            foreach (var playerClient in room.Players.Values.Select(player => Connections.Values.First(_client => _client.User.UniqueId.Equals(player.Id))))
+            {
+                _outgoingPacketManager.SendPacket(playerClient, movement);
+            }
         }
 
         // Send an acknowledgement back to the client for the received packet.

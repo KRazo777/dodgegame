@@ -15,6 +15,7 @@ public class PacketHandler
         RegisterServerbound<SB.AcknowledgementPacket>();
         RegisterServerbound<SB.PingPacket>();
         RegisterServerbound<SB.JoinGameRequestPacket>();
+        RegisterServerbound<SB.MovementPacket>();
 
         RegisterClientbound<CB.HandshakePacket>();
         RegisterClientbound<CB.AcknowledgementPacket>();
@@ -22,6 +23,7 @@ public class PacketHandler
         RegisterClientbound<CB.JoinGameConfirmedPacket>();
         RegisterClientbound<CB.PlayerDetailsPacket>();
         RegisterClientbound<CB.SpawnPlayerPacket>();
+        RegisterClientbound<CB.MovementPacket>();
     }
 
     public Packet? CreateServerboundInstance(ushort messageId)

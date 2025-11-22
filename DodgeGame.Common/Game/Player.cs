@@ -13,6 +13,9 @@ namespace DodgeGame.Common.Game
         public ushort BulletCount { get; set; }
         public bool IsAlive { get; set; }
         public byte LivesRemaining { get; set; }
+        
+        public float X { get; set; }
+        public float Y { get; set; }
     
         public void IncKill() => Kills++;
         public void IncBulletCount() => BulletCount++;
