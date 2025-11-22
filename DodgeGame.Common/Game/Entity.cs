@@ -14,5 +14,7 @@ namespace DodgeGame.Common.Game
             UniqueId = uniqueId;
             EntityType = entityType;
         }
+
+        public string Id => UniqueId;
     }
 }

@@ -1,0 +1,15 @@
+using Riptide;
+using Client = DodgeGame.Common.Manager.Client;
+
+namespace DodgeGame.Common.Packets
+{
+    public abstract class Packet
+    {
+        public abstract ushort Id { get; }
+        public ushort SequenceId { get; set; }
+        public abstract void Deserialize(Message message);
+        public abstract Message Serialize();
+
+        public abstract void Process(Client client);
+    }
+}
