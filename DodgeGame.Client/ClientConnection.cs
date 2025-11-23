@@ -17,6 +17,7 @@ namespace DodgeGame.Client
 
         public Riptide.Client RiptideClient => _riptideClient;
         public Connection Connection => _riptideClient.Connection;
+        public ConnectionHandler ConnectionHandler => _connectionHandler;
 
         public ClientConnection()
         {

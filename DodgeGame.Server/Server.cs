@@ -20,6 +20,9 @@ public class Server
         GameServer.ClientDisconnected += ConnectionHandler.OnClientDisconnect;
         GameServer.MessageReceived += ConnectionHandler.OnMessageReceived;
 
+        var devRoom = new GameRoom("DEV-UUID", "devroom", "DEV ROOM");
+        GameRooms.Add(devRoom.RoomId, devRoom);
+
         while (true)
         {
             GameServer.Update();

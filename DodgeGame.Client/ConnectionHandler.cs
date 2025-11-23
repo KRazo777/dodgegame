@@ -1,8 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using DodgeGame.Common.Game;
 using DodgeGame.Common.Packets;
 using DodgeGame.Common.Packets.Serverbound;
 using Riptide;
+using GameListPacket = DodgeGame.Common.Packets.Clientbound.GameListPacket;
 
 namespace DodgeGame.Client
 {
@@ -10,6 +14,7 @@ namespace DodgeGame.Client
     {
         private readonly PacketHandler _packetHandler;
         private ClientConnection _clientConnection;
+        public readonly List<GameRoom> FoundRooms = new List<GameRoom>();
 
         public ConnectionHandler(ClientConnection clientConnection)
         {
@@ -22,14 +27,12 @@ namespace DodgeGame.Client
             _clientConnection.Connection.CanQualityDisconnect = false;
             _clientConnection.Client = new Common.Manager.Client(_clientConnection.Connection);
             UnityEngine.Debug.Log("Connected and sent handshake");
-            
         }
-        
+
         public void Disconnected(object? sender, DisconnectedEventArgs args)
         {
             _clientConnection.Client = null;
             UnityEngine.Debug.Log("Disconnected from server");
-            
         }
 
         public void HandlePacket(object? sender, MessageReceivedEventArgs args)
@@ -43,11 +46,18 @@ namespace DodgeGame.Client
                 // throw some message / error
                 return;
             }
-            
+
             UnityEngine.Debug.Log("Received packet " + messageId + " from server");
 
             packet.Deserialize(message);
             if (_clientConnection.Client != null) packet.Process(_clientConnection.Client);
+
+            if (messageId == PacketIds.Clientbound.GameList)
+            {
+                var gameList = (GameListPacket)packet;
+                FoundRooms.Clear();
+                FoundRooms.AddRange(gameList.GameRooms);
+            }
         }
     }
 }
