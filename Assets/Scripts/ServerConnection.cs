@@ -8,6 +8,12 @@ public class ServerConnection : MonoBehaviour
     public ClientConnection _clientConnection;
     public readonly string UniqueId = Guid.NewGuid().ToString();
     public ClientConnection ClientConnection => _clientConnection;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
