@@ -29,7 +29,6 @@ namespace DodgeGame.Common.Packets.Clientbound
 
         public override void Deserialize(Message message)
         {
-            SequenceId = message.GetUShort();
             UniqueId = message.GetString();
             Name = message.GetString();
             Kills = message.GetByte();
@@ -41,7 +40,6 @@ namespace DodgeGame.Common.Packets.Clientbound
         public override Message Serialize()
         {
             var message = Message.Create(MessageSendMode.Reliable, PacketIds.Clientbound.PlayerDetails);
-            message.AddUShort(SequenceId);
             message.AddString(UniqueId);
             message.AddString(Name);
             message.AddByte(Kills);

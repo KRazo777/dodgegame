@@ -20,7 +20,6 @@ namespace DodgeGame.Common.Packets.Clientbound
 
         public override void Deserialize(Message message)
         {
-            SequenceId = message.GetUShort();
             ClientId = message.GetUShort();
             GameRoomId = message.GetString();
         }
@@ -28,7 +27,6 @@ namespace DodgeGame.Common.Packets.Clientbound
         public override Message Serialize()
         {
             var message = Message.Create(MessageSendMode.Reliable, PacketIds.Clientbound.JoinGameConfirmed);
-            message.AddUShort(SequenceId);
             message.AddUShort(ClientId);
             message.AddString(GameRoomId);
             return message;

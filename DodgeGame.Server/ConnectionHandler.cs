@@ -3,6 +3,8 @@ using Riptide;
 using Client = DodgeGame.Common.Manager.Client;
 using DodgeGame.Common.Packets;
 using DodgeGame.Common.Packets.Clientbound;
+using DodgeGame.Common.Packets.Serverbound;
+using HandshakePacket = DodgeGame.Common.Packets.Serverbound.HandshakePacket;
 
 namespace DodgeGame.Server;
 
@@ -17,12 +19,15 @@ public class ConnectionHandler
 
     public void OnClientConnect(object? sender, ServerConnectedEventArgs args)
     {
+        Console.WriteLine("Client connected: " + args.Client.Id);
+        args.Client.CanQualityDisconnect = false;
         Connections[args.Client.Id] = new Client(args.Client);
     }
 
     public void OnClientDisconnect(object? sender, ServerDisconnectedEventArgs args)
     {
         Connections.Remove(args.Client.Id);
+        _lastClientPingAt.Remove(args.Client.Id);
     }
 
     public void OnMessageReceived(object? sender, MessageReceivedEventArgs args)
@@ -30,7 +35,11 @@ public class ConnectionHandler
         var connection = args.FromConnection;
         var messageId = args.MessageId;
         var message = args.Message;
-        var client = this.Connections[connection.Id];
+        if (!Connections.TryGetValue(connection.Id, out var client))
+        {
+            return;
+        }
+        client = Connections[connection.Id];
 
         var packet = _packetHandler.CreateServerboundInstance(messageId);
         if (packet == null)
@@ -39,44 +48,48 @@ public class ConnectionHandler
             return;
         }
 
+        Console.WriteLine("Received packet " + messageId + " from " + connection.Id);
+
         packet.Deserialize(message);
         packet.Process(client);
 
-        // Handle acknowledgements for serverbound acknowledgements and pings.
-        // if (messageId == PacketIds.Serverbound.Acknowledgement)
-        // {
-        //     var ack = (AcknowledgementPacket)packet;
-        //     _outgoingPacketManager.HandleAcknowledgement(client.Identifier, ack.AcknowledgedSequenceId);
-        //     return;
-        // }
-
         if (messageId == PacketIds.Serverbound.Ping)
         {
-            var pong = (PongPacket)packet;
-            _outgoingPacketManager.HandleAcknowledgement(client.Identifier, pong.PingSequenceId);
+            var ping = (PingPacket)packet;
             _lastClientPingAt[client.Identifier] = DateTime.UtcNow;
+
+            client.Connection.Send(new PongPacket(ping.SentAtTicks).Serialize());
         }
 
         if (messageId == PacketIds.Serverbound.Movement)
         {
-            var movement = (MovementPacket)packet;
-            var room = Server.GameRooms.Values.First(gameRoom => gameRoom.Players.ContainsKey(movement.UniqueId));
-            room.Players[movement.UniqueId].X = movement.X;
-            room.Players[movement.UniqueId].Y = movement.Y;
-            
-            foreach (var playerClient in room.Players.Values.Select(player => Connections.Values.First(_client => _client.User.UniqueId.Equals(player.Id))))
-            {
-                _outgoingPacketManager.SendPacket(playerClient, movement);
-            }
+            var movement = (DodgeGame.Common.Packets.Serverbound.MovementPacket)packet;
+            Console.WriteLine("Player " + movement.UniqueId + " moved to " + movement.X + ", " + movement.Y);
+            //
+            // var room = Server.GameRooms.Values.First(gameRoom => gameRoom.Players.ContainsKey(movement.UniqueId));
+            // room.Players[movement.UniqueId].X = movement.X;
+            // room.Players[movement.UniqueId].Y = movement.Y;
+            //
+            //
+            // foreach (var playerClient in room.Players.Values.Select(player =>
+            //              Connections.Values.First(_client => _client.User.UniqueId.Equals(player.Id))))
+            // {
+            //     _outgoingPacketManager.SendPacket(playerClient, movement);
+            // }
+        }
+
+        if (messageId == PacketIds.Serverbound.Handshake)
+        {
+            var handshake = (HandshakePacket)packet;
+            Console.WriteLine("Received handshake from " + handshake.Username);
         }
 
         // Send an acknowledgement back to the client for the received packet.
-        _outgoingPacketManager.SendAcknowledgementFor(client, packet);
+        // _outgoingPacketManager.SendAcknowledgementFor(client, packet);
     }
 
     public void Update()
     {
-        _outgoingPacketManager.TickResends();
         DisconnectInactiveClients();
     }
 
@@ -91,6 +104,7 @@ public class ConnectionHandler
                 {
                     Server.Disconnect(client);
                     Connections.Remove(client.Identifier);
+                    Console.WriteLine("Disconnected inactive client " + client.Identifier);
                 }
             }
         }

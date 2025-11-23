@@ -18,14 +18,12 @@ namespace DodgeGame.Common.Packets.Serverbound
 
         public override void Deserialize(Message message)
         {
-            SequenceId = message.GetUShort();
             SentAtTicks = message.GetLong();
         }
 
         public override Message Serialize()
         {
             var message = Message.Create(MessageSendMode.Reliable, PacketIds.Serverbound.Ping);
-            message.AddUShort(SequenceId);
             message.AddLong(SentAtTicks);
             return message;
         }

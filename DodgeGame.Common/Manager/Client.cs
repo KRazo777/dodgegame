@@ -17,11 +17,5 @@ namespace DodgeGame.Common.Manager
     
         public ushort Identifier => _identifier;
 
-        public ushort? LastAcknowledgedClientboundSequenceId { get; private set; }
-
-        public void RegisterClientboundAcknowledgement(ushort sequenceId)
-        {
-            LastAcknowledgedClientboundSequenceId = sequenceId;
-        }
     }
 }

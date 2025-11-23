@@ -24,7 +24,6 @@ namespace DodgeGame.Common.Packets.Serverbound
 
         public override void Deserialize(Message message)
         {
-            SequenceId = message.GetUShort();
             UniqueId = message.GetString();
             Username = message.GetString();
             DateCreated = message.GetLong();
@@ -33,7 +32,6 @@ namespace DodgeGame.Common.Packets.Serverbound
         public override Message Serialize()
         {
             var message = Message.Create(MessageSendMode.Reliable, PacketIds.Serverbound.Handshake);
-            message.AddUShort(SequenceId);
             message.AddString(UniqueId);
             message.AddString(Username);
             message.AddLong(DateCreated);

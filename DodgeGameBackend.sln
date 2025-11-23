@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DodgeGame.Server", "DodgeGa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DodgeGame.Common", "DodgeGame.Common\DodgeGame.Common.csproj", "{69F00CF2-8BEB-4109-A53D-1A16E92D0E02}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DodgeGame.Client", "DodgeGame.Client\DodgeGame.Client.csproj", "{7DBD53F0-3C4F-4373-AE7C-DE7F61F179E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{69F00CF2-8BEB-4109-A53D-1A16E92D0E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69F00CF2-8BEB-4109-A53D-1A16E92D0E02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69F00CF2-8BEB-4109-A53D-1A16E92D0E02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DBD53F0-3C4F-4373-AE7C-DE7F61F179E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DBD53F0-3C4F-4373-AE7C-DE7F61F179E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DBD53F0-3C4F-4373-AE7C-DE7F61F179E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DBD53F0-3C4F-4373-AE7C-DE7F61F179E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

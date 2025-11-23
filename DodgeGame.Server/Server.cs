@@ -14,7 +14,7 @@ public class Server
         RiptideLogger.Initialize(Console.WriteLine, Console.WriteLine, Console.WriteLine, Console.WriteLine, false);
         GameServer = new Riptide.Server();
         
-        GameServer.Start(2442, ushort.MaxValue);
+        GameServer.Start(2442, ushort.MaxValue - 1, 0, false);
 
         GameServer.ClientConnected += ConnectionHandler.OnClientConnect;
         GameServer.ClientDisconnected += ConnectionHandler.OnClientDisconnect;
