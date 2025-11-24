@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
 using DodgeGame.Common.Game;
 using TMPro;
 using UnityEngine;
+using DodgeGame.Common.Packets.Serverbound;
 
 public class GameListRenderer : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class GameListRenderer : MonoBehaviour
     private List<GameRoom> _shownRooms = new List<GameRoom>();
 
     private GameObject _gameRoomObject;
+
+    [SerializeField] private float RefreshGameListSecondsInterval = 2f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,6 +25,25 @@ public class GameListRenderer : MonoBehaviour
 
         _gameRoomObject = GameObject.Find("Game");
         updateObject();
+
+        StartCoroutine(RefreshGameListRoutine());
+    }
+
+    IEnumerator RefreshGameListRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(RefreshGameListSecondsInterval);
+
+            Debug.Log("REFRESHING GAME LIST");
+            RequestGameList();
+
+        }
+    }
+
+    void RequestGameList()
+    {
+        _serverConnection.ClientConnection.SendToServer(new GameListPacket());
     }
 
     // Update is called once per frame
