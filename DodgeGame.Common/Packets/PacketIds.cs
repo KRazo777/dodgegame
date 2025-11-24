@@ -2,27 +2,30 @@ namespace DodgeGame.Common.Packets
 {
     public static class PacketIds
     {
-        public static class Serverbound
+
+        public enum Serverbound : ushort
         {
-            public const ushort Handshake = 1;
-            public const ushort Ping = 2;
-            public const ushort JoinGameRequest = 3;
-            public const ushort Movement = 4;
-            public const ushort GameList = 5;
-            public const ushort GameJoin = 6;
-            public const ushort ClientAuth = 7;
+            Handshake = 1,
+            Ping = 2,
+            JoinGameRequest = 3,
+            Movement = 4,
+            GameList = 5,
+            GameJoin = 6,
+            ClientAuth = 7,
+            CreateRoom = 8
         }
 
-        public static class Clientbound
+        public enum Clientbound : ushort
         {
-            public const ushort Handshake = 1001;
-            public const ushort Pong = 1002;
-            public const ushort JoinGameConfirmed = 1003;
-            public const ushort PlayerDetails = 1004;
-            public const ushort SpawnPlayer = 1005;
-            public const ushort Movement = 1006;
-            public const ushort GameList = 1007;
-            public const ushort ClientAuth = 1008;
+            Handshake = 1001,
+            Pong = 1002,
+            JoinGameConfirmed = 1003,
+            PlayerDetails = 1004,
+            SpawnPlayer = 1005,
+            Movement = 1006,
+            GameList = 1007,
+            ClientAuth = 1008,
+            CreatedRoom = 1009
         }
     }
 }

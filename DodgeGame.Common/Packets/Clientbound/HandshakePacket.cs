@@ -2,9 +2,10 @@ using Riptide;
 
 namespace DodgeGame.Common.Packets.Clientbound
 {
-    public class HandshakePacket : Packet
+    using Client = DodgeGame.Common.Manager.Client;
+    public class HandshakePacket : Packet, IClientPacket
     {
-        public override ushort Id => PacketIds.Clientbound.Handshake;
+        public override ushort Id => (ushort)PacketIds.Clientbound.Handshake;
         public ushort ClientId { get; private set; }
         public string UniqueId { get; private set; } = string.Empty;
         public string Username { get; private set; } = string.Empty;
@@ -32,7 +33,7 @@ namespace DodgeGame.Common.Packets.Clientbound
 
         public override Message Serialize()
         {
-            var message = Message.Create(MessageSendMode.Reliable, PacketIds.Clientbound.Handshake);
+            var message = Message.Create(MessageSendMode.Reliable, Id);
             message.AddUShort(ClientId);
             message.AddString(UniqueId);
             message.AddString(Username);
@@ -40,7 +41,7 @@ namespace DodgeGame.Common.Packets.Clientbound
             return message;
         }
 
-        public override void Process(Manager.Client client)
+        public void Process(Client client)
         {
             // Clientbound packets are not processed on the server.
         }

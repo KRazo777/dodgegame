@@ -3,9 +3,9 @@ using Client = DodgeGame.Common.Manager.Client;
 
 namespace DodgeGame.Common.Packets.Clientbound
 {
-    public class PongPacket : Packet
+    public class PongPacket : Packet, IClientPacket
     {
-        public override ushort Id => PacketIds.Clientbound.Pong;
+        public override ushort Id => (ushort)PacketIds.Clientbound.Pong;
         public long SentAtTicks { get; private set; }
 
         public PongPacket()
@@ -24,12 +24,12 @@ namespace DodgeGame.Common.Packets.Clientbound
 
         public override Message Serialize()
         {
-            var message = Message.Create(MessageSendMode.Reliable, PacketIds.Clientbound.Pong);
+            var message = Message.Create(MessageSendMode.Reliable, Id);
             message.AddLong(SentAtTicks);
             return message;
         }
 
-        public override void Process(Client client)
+        public void Process(Client client)
         {
             // Server removes pending ping on receipt elsewhere; store latency info as needed.
         }

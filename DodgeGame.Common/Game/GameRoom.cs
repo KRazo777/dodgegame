@@ -9,15 +9,17 @@ namespace DodgeGame.Common.Game
     
         public string HostUniqueId { get; }
         public string RoomId { get; }
-        public string RoomName { get; set; }
+        public string OwnerName { get; set; }
         public string RoomPassword { get; set; }
         public bool IsPrivate { get; set; }
+        
+        public bool IsStarted { get; set; }
 
-        public GameRoom(string hostUniqueId, string roomId, string roomName)
+        public GameRoom(string hostUniqueId, string roomId, string ownerName)
         {
             HostUniqueId = hostUniqueId;
             RoomId = roomId;
-            RoomName = roomName;
+            OwnerName = ownerName;
         }
     }
 }

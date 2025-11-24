@@ -6,8 +6,9 @@ using Client = DodgeGame.Common.Manager.Client;
 using DodgeGame.Common.Packets;
 using DodgeGame.Common.Packets.Clientbound;
 using DodgeGame.Common.Packets.Serverbound;
-using GameListPacket = DodgeGame.Common.Packets.Clientbound.GameListPacket;
+using GameListPacket = DodgeGame.Common.Packets.Serverbound.GameListPacket;
 using HandshakePacket = DodgeGame.Common.Packets.Serverbound.HandshakePacket;
+using MovementPacket = DodgeGame.Common.Packets.Serverbound.MovementPacket;
 
 namespace DodgeGame.Server;
 
@@ -19,6 +20,17 @@ public class ConnectionHandler
     private readonly OutgoingPacketManager _outgoingPacketManager = new();
     private readonly Dictionary<ushort, DateTime> _lastClientPingAt = new();
     private readonly TimeSpan _clientPingTimeout = TimeSpan.FromSeconds(5);
+
+    public ConnectionHandler()
+    {
+        _packetHandler.RegisterServerbound<HandshakePacket>();
+        _packetHandler.RegisterServerbound<PingPacket>();
+        _packetHandler.RegisterServerbound<JoinGameRequestPacket>();
+        _packetHandler.RegisterServerbound<MovementPacket>();
+        _packetHandler.RegisterServerbound<GameListPacket>();
+        _packetHandler.RegisterServerbound<ClientAuthenticationPacket>();
+        _packetHandler.RegisterServerbound<CreateRoomPacket>();
+    }
 
     public void OnClientConnect(object? sender, ServerConnectedEventArgs args)
     {
@@ -36,7 +48,7 @@ public class ConnectionHandler
     public void OnMessageReceived(object? sender, MessageReceivedEventArgs args)
     {
         var connection = args.FromConnection;
-        var messageId = args.MessageId;
+        var messageId = (PacketIds.Serverbound)args.MessageId;
         var message = args.Message;
         if (!Connections.TryGetValue(connection.Id, out var client))
         {
@@ -45,7 +57,7 @@ public class ConnectionHandler
 
         client = Connections[connection.Id];
 
-        var packet = _packetHandler.CreateServerboundInstance(messageId);
+        var packet = _packetHandler.CreateServerboundInstance((ushort)messageId);
         if (packet == null)
         {
             // throw some message / error
@@ -55,14 +67,11 @@ public class ConnectionHandler
         Console.WriteLine("Received packet " + messageId + " from " + connection.Id);
 
         packet.Deserialize(message);
-        packet.Process(client);
+        ((IServerPacket)packet).Process(DodgeBackend.GameServer, client);
 
         if (messageId == PacketIds.Serverbound.Ping)
         {
-            var ping = (PingPacket)packet;
             _lastClientPingAt[client.Identifier] = DateTime.UtcNow;
-
-            client.Connection.Send(new PongPacket(ping.SentAtTicks).Serialize());
             return;
         }
 
@@ -71,7 +80,7 @@ public class ConnectionHandler
             var movement = (DodgeGame.Common.Packets.Serverbound.MovementPacket)packet;
             Console.WriteLine("Player " + movement.UniqueId + " moved to " + movement.X + ", " + movement.Y);
 
-            var room = Server.GameRooms.Values.FirstOrDefault(
+            var room = DodgeBackend.GameServer.GameRooms.Values.FirstOrDefault(
                 gameRoom => gameRoom != null && gameRoom.Players.ContainsKey(movement.UniqueId), null);
             if (room == null) return;
             room.Players[movement.UniqueId].X = movement.X;
@@ -87,21 +96,14 @@ public class ConnectionHandler
             return;
         }
 
-        if (messageId == PacketIds.Serverbound.GameList)
-        {
-            Console.WriteLine(Server.GameRooms.Values.ToArray());
-            client.Connection.Send(new GameListPacket(Server.GameRooms.Values.ToArray()).Serialize());
-            return;
-        }
-
         if (messageId == PacketIds.Serverbound.GameJoin)
         {
             var joinGamePacket = (JoinGamePacket)packet;
-            if (!Server.GameRooms.TryGetValue(joinGamePacket.RoomId, out var room)) return;
-            
+            if (!DodgeBackend.GameServer.GameRooms.TryGetValue(joinGamePacket.RoomId, out var room)) return;
+
             var player = new Player(client.User.UniqueId, client.User.Username, EntityType.Player);
             room.Players.Add(player.Id, player);
-            
+
             //TODO: SEND GAME JOIN TO PLAYER, SEND OTHER PLAYER INFO TO PLAYER
             return;
         }
@@ -117,20 +119,20 @@ public class ConnectionHandler
         {
             var auth = (ClientAuthenticationPacket)packet;
             var token = auth.Token.Substring(0, auth.Token.Length - 1);
-            Console.WriteLine("Received auth token " + token);
-            Console.WriteLine(Server.RestServer.Tokens.Count);
-            if (!Server.RestServer.Tokens.IsEmpty)
+            if (!DodgeBackend.RestServer.Tokens.IsEmpty)
             {
-                Console.WriteLine(Server.RestServer.Tokens.First());
+                Console.WriteLine(DodgeBackend.RestServer.Tokens.First());
             }
-            var record = Server.RestServer.Tokens.Values.FirstOrDefault(tr => tr != null && tr.Token.Equals(token), null);
+
+            var record =
+                DodgeBackend.RestServer.Tokens.Values.FirstOrDefault(tr => tr != null && tr.Token.Equals(token));
             if (record == null)
             {
                 Console.WriteLine("Token not found");
                 return;
             }
 
-            var user = Server.SupabaseClient.AdminAuth.GetUserById(record.UserId).GetAwaiter().GetResult();
+            var user = DodgeBackend.SupabaseClient.AdminAuth.GetUserById(record.UserId).GetAwaiter().GetResult();
             Console.WriteLine("User " + user?.UserMetadata["username"] + " logged in");
             if (user == null)
             {
@@ -141,6 +143,8 @@ public class ConnectionHandler
             var createdUser = new User(user.Id, user.UserMetadata["username"] as string,
                 (long)(user.CreatedAt - new DateTime(1970, 1, 1)).TotalMilliseconds);
             
+            client.User = createdUser;
+
             client.Connection.Send(new ClientAuthenticatedPacket(createdUser).Serialize());
             
         }
@@ -163,7 +167,7 @@ public class ConnectionHandler
             {
                 if (now - lastClientPing > _clientPingTimeout)
                 {
-                    Server.Disconnect(client);
+                    DodgeBackend.GameServer.Disconnect(client);
                     Connections.Remove(client.Identifier);
                     Console.WriteLine("Disconnected inactive client " + client.Identifier);
                 }

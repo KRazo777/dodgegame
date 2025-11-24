@@ -1,10 +1,11 @@
 using Riptide;
+using Client = DodgeGame.Common.Manager.Client;
 
 namespace DodgeGame.Common.Packets.Clientbound
 {
-    public class PlayerDetailsPacket : Packet
+    public class PlayerDetailsPacket : Packet, IClientPacket
     {
-        public override ushort Id => PacketIds.Clientbound.PlayerDetails;
+        public override ushort Id => (ushort)PacketIds.Clientbound.PlayerDetails;
 
         public string UniqueId { get; private set; } = string.Empty;
         public string Name { get; private set; } = string.Empty;
@@ -39,7 +40,7 @@ namespace DodgeGame.Common.Packets.Clientbound
 
         public override Message Serialize()
         {
-            var message = Message.Create(MessageSendMode.Reliable, PacketIds.Clientbound.PlayerDetails);
+            var message = Message.Create(MessageSendMode.Reliable, Id);
             message.AddString(UniqueId);
             message.AddString(Name);
             message.AddByte(Kills);
@@ -49,7 +50,7 @@ namespace DodgeGame.Common.Packets.Clientbound
             return message;
         }
 
-        public override void Process(Manager.Client client)
+        public void Process(Client client)
         {
             // Clientbound packet: handled on client application to set up the local player.
         }

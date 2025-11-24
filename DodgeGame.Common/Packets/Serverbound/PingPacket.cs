@@ -1,10 +1,11 @@
+using DodgeGame.Common.Packets.Clientbound;
 using Riptide;
 
 namespace DodgeGame.Common.Packets.Serverbound
 {
-    public class PingPacket : Packet
+    public class PingPacket : Packet, IServerPacket
     {
-        public override ushort Id => PacketIds.Serverbound.Ping;
+        public override ushort Id => (ushort)PacketIds.Serverbound.Ping;
         public long SentAtTicks { get; private set; }
 
         public PingPacket()
@@ -23,14 +24,14 @@ namespace DodgeGame.Common.Packets.Serverbound
 
         public override Message Serialize()
         {
-            var message = Message.Create(MessageSendMode.Reliable, PacketIds.Serverbound.Ping);
+            var message = Message.Create(MessageSendMode.Reliable, Id);
             message.AddLong(SentAtTicks);
             return message;
         }
 
-        public override void Process(Manager.Client client)
+        public void Process(IGameServer gameServer, Manager.Client client)
         {
-            // Clientbound packets are not processed on the server.
+            client.SendPacket(new PongPacket(SentAtTicks));
         }
     }
 }

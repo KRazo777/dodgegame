@@ -4,9 +4,9 @@ using Client = DodgeGame.Common.Manager.Client;
 
 namespace DodgeGame.Common.Packets.Serverbound
 {
-    public class HandshakePacket : Packet
+    public class HandshakePacket : Packet, IServerPacket
     {
-        public override ushort Id => PacketIds.Serverbound.Handshake;
+        public override ushort Id => (ushort)PacketIds.Serverbound.Handshake;
         public string UniqueId { get; private set; } = string.Empty;
         public string Username { get; private set; } = string.Empty;
         public long DateCreated { get; private set; }
@@ -31,14 +31,14 @@ namespace DodgeGame.Common.Packets.Serverbound
 
         public override Message Serialize()
         {
-            var message = Message.Create(MessageSendMode.Reliable, PacketIds.Serverbound.Handshake);
+            var message = Message.Create(MessageSendMode.Reliable, Id);
             message.AddString(UniqueId);
             message.AddString(Username);
             message.AddLong(DateCreated);
             return message;
         }
 
-        public override void Process(Client client)
+        public void Process(IGameServer gameServer, Client client)
         {
             
         }

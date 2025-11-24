@@ -1,10 +1,11 @@
 using Riptide;
+using Client = DodgeGame.Common.Manager.Client;
 
 namespace DodgeGame.Common.Packets.Clientbound
 {
-    public class MovementPacket : Packet
+    public class MovementPacket : Packet, IClientPacket
     {
-        public override ushort Id => PacketIds.Clientbound.Movement;
+        public override ushort Id => (ushort)PacketIds.Clientbound.Movement;
 
         public string UniqueId { get; private set; } = string.Empty;
         public float X { get; private set; }
@@ -30,14 +31,14 @@ namespace DodgeGame.Common.Packets.Clientbound
 
         public override Message Serialize()
         {
-            var message = Message.Create(MessageSendMode.Unreliable, PacketIds.Clientbound.Movement);
+            var message = Message.Create(MessageSendMode.Unreliable, Id);
             message.AddString(UniqueId);
             message.AddFloat(X);
             message.AddFloat(Y);
             return message;
         }
 
-        public override void Process(Manager.Client client)
+        public void Process(Client client)
         {
             // Clientbound packet: handled client-side to update entity positions.
         }

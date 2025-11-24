@@ -3,9 +3,9 @@ using Client = DodgeGame.Common.Manager.Client;
 
 namespace DodgeGame.Common.Packets.Serverbound
 {
-    public class MovementPacket : Packet
+    public class MovementPacket : Packet, IServerPacket
     {
-        public override ushort Id => PacketIds.Serverbound.Movement;
+        public override ushort Id => (ushort)PacketIds.Serverbound.Movement;
 
         public string UniqueId { get; private set; } = string.Empty;
         public float X { get; private set; }
@@ -31,14 +31,14 @@ namespace DodgeGame.Common.Packets.Serverbound
 
         public override Message Serialize()
         {
-            var message = Message.Create(MessageSendMode.Unreliable, PacketIds.Serverbound.Movement);
+            var message = Message.Create(MessageSendMode.Unreliable, Id);
             message.AddString(UniqueId);
             message.AddFloat(X);
             message.AddFloat(Y);
             return message;
         }
 
-        public override void Process(Client client)
+        public void Process(IGameServer gameServer, Client client)
         {
             // Server should update the tracked position for this client.
         }

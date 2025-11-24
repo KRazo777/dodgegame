@@ -4,9 +4,9 @@ using Client = DodgeGame.Common.Manager.Client;
 
 namespace DodgeGame.Common.Packets.Serverbound
 {
-    public class JoinGamePacket : Packet
+    public class JoinGamePacket : Packet, IServerPacket
     {
-        public override ushort Id => PacketIds.Serverbound.GameJoin;
+        public override ushort Id => (ushort)PacketIds.Serverbound.GameJoin;
 
         private string _roomId;
         
@@ -28,12 +28,12 @@ namespace DodgeGame.Common.Packets.Serverbound
 
         public override Message Serialize()
         {
-            var message = Message.Create(MessageSendMode.Reliable, PacketIds.Serverbound.GameJoin);
+            var message = Message.Create(MessageSendMode.Reliable, Id);
             message.AddString(_roomId);
             return message;
         }
 
-        public override void Process(Client client)
+        public void Process(IGameServer gameServer, Client client)
         {
         }
     }

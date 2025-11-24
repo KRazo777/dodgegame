@@ -2,6 +2,7 @@ using Supabase;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Interfaces;
 using Client = Supabase.Client;
+using User = Supabase.Gotrue.User;
 
 namespace DodgeGame.Server.Authentication;
 

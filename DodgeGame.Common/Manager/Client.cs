@@ -1,5 +1,6 @@
 using Riptide;
 using DodgeGame.Common;
+using DodgeGame.Common.Packets;
 
 namespace DodgeGame.Common.Manager
 {
@@ -13,6 +14,11 @@ namespace DodgeGame.Common.Manager
         {
             _identifier = connection.Id;
             Connection = connection;
+        }
+
+        public void SendPacket(Packet packet)
+        {
+            Connection.Send(packet.Serialize());
         }
     
         public ushort Identifier => _identifier;

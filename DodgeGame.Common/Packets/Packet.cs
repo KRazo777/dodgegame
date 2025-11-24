@@ -8,7 +8,5 @@ namespace DodgeGame.Common.Packets
         public abstract ushort Id { get; }
         public abstract void Deserialize(Message message);
         public abstract Message Serialize();
-
-        public abstract void Process(Client client);
     }
 }

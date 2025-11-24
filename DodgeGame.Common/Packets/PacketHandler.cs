@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using CB = DodgeGame.Common.Packets.Clientbound;
-using SB = DodgeGame.Common.Packets.Serverbound;
 
 namespace DodgeGame.Common.Packets
 {
@@ -12,21 +10,7 @@ namespace DodgeGame.Common.Packets
 
         public PacketHandler()
         {
-            RegisterServerbound<SB.HandshakePacket>();
-            RegisterServerbound<SB.PingPacket>();
-            RegisterServerbound<SB.JoinGameRequestPacket>();
-            RegisterServerbound<SB.MovementPacket>();
-            RegisterServerbound<SB.GameListPacket>();
-            RegisterServerbound<SB.ClientAuthenticationPacket>();
-
-            RegisterClientbound<CB.HandshakePacket>();
-            RegisterClientbound<CB.PongPacket>();
-            RegisterClientbound<CB.JoinGameConfirmedPacket>();
-            RegisterClientbound<CB.PlayerDetailsPacket>();
-            RegisterClientbound<CB.SpawnPlayerPacket>();
-            RegisterClientbound<CB.MovementPacket>();
-            RegisterClientbound<CB.GameListPacket>();
-            RegisterClientbound<CB.ClientAuthenticatedPacket>();
+            
         }
 
         public Packet? CreateServerboundInstance(ushort messageId)

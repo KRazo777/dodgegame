@@ -1,10 +1,11 @@
 using Riptide;
+using Client = DodgeGame.Common.Manager.Client;
 
 namespace DodgeGame.Common.Packets.Clientbound
 {
-    public class JoinGameConfirmedPacket : Packet
+    public class JoinGameConfirmedPacket : Packet, IClientPacket
     {
-        public override ushort Id => PacketIds.Clientbound.JoinGameConfirmed;
+        public override ushort Id => (ushort)PacketIds.Clientbound.JoinGameConfirmed;
         public ushort ClientId { get; private set; }
         public string GameRoomId { get; private set; } = string.Empty;
 
@@ -26,13 +27,13 @@ namespace DodgeGame.Common.Packets.Clientbound
 
         public override Message Serialize()
         {
-            var message = Message.Create(MessageSendMode.Reliable, PacketIds.Clientbound.JoinGameConfirmed);
+            var message = Message.Create(MessageSendMode.Reliable, Id);
             message.AddUShort(ClientId);
             message.AddString(GameRoomId);
             return message;
         }
 
-        public override void Process(Manager.Client client)
+        public void Process(Client client)
         {
             // Clientbound packets are handled on the client application.
         }

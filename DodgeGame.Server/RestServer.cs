@@ -102,16 +102,8 @@ public class RestServer
             var requestPath = context.Request.Url?.AbsolutePath.TrimEnd('/').ToLowerInvariant() ?? string.Empty;
             switch (requestPath)
             {
-                case "/health":
-                case "":
-                    await WriteJsonAsync(context.Response, HttpStatusCode.OK, new { status = "ok" })
-                        .ConfigureAwait(false);
-                    break;
                 case "/api/v1/token":
                     await HandleTokenAsync(context).ConfigureAwait(false);
-                    break;
-                case "/rooms":
-                    await WriteRoomsAsync(context.Response).ConfigureAwait(false);
                     break;
                 default:
                     await WriteJsonAsync(context.Response, HttpStatusCode.NotFound, new { error = "Not found" })
@@ -129,22 +121,6 @@ public class RestServer
             context.Response.OutputStream.Close();
         }
     }
-
-    private async Task WriteRoomsAsync(HttpListenerResponse response)
-    {
-        var rooms = Server.GameRooms.Values.Select(room => new
-        {
-            room.RoomId,
-            room.RoomName,
-            room.HostUniqueId,
-            room.IsPrivate,
-            playerCount = room.Players.Count,
-            entityCount = room.Entities.Count
-        });
-
-        await WriteJsonAsync(response, HttpStatusCode.OK, new { rooms }).ConfigureAwait(false);
-    }
-
     private async Task WriteJsonAsync(HttpListenerResponse response, HttpStatusCode statusCode, object payload)
     {
         AddCorsHeaders(response);
@@ -167,7 +143,7 @@ public class RestServer
                 return;
             }
 
-            var user = await Server.SupabaseClient.AdminAuth.GetUserById(record.UserId);
+            var user = await DodgeBackend.SupabaseClient.AdminAuth.GetUserById(record.UserId);
             if (user == null)
             {
                 await WriteJsonAsync(context.Response, HttpStatusCode.NotFound, new { error = "User not found" })
@@ -269,11 +245,19 @@ public class RestServer
             return null;
         }
     }
+    
+    public class TokenPayload(string token, string userId)
+    {
+        [property: JsonPropertyName("token")]
+        public string Token { get; private set; } = token;
 
-    private record TokenPayload(
-        [property: JsonPropertyName("token")] string Token,
         [property: JsonPropertyName("user_id")]
-        string UserId);
+        public string UserId { get; private set; } = userId;
+    }
 
-    public record TokenRecord(string Token, string UserId);
+    public class TokenRecord(string token, string userId)
+    {
+        public string Token { get; private set; } = token;
+        public string UserId { get; private set; } = userId;
+    }
 }

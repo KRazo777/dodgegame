@@ -1,12 +1,11 @@
-using DodgeGame.Common;
 using Riptide;
 using Client = DodgeGame.Common.Manager.Client;
 
 namespace DodgeGame.Common.Packets.Clientbound
 {
-    public class ClientAuthenticatedPacket : Packet
+    public class ClientAuthenticatedPacket : Packet, IClientPacket
     {
-        public override ushort Id => PacketIds.Clientbound.ClientAuth;
+        public override ushort Id => (ushort)PacketIds.Clientbound.ClientAuth;
 
         private User _user;
 
@@ -25,19 +24,19 @@ namespace DodgeGame.Common.Packets.Clientbound
                 message.GetString(),
                 message.GetString(),
                 message.GetLong()
-                );
+            );
         }
 
         public override Message Serialize()
         {
-            var message = Message.Create(MessageSendMode.Reliable, PacketIds.Clientbound.ClientAuth);
+            var message = Message.Create(MessageSendMode.Reliable, Id);
             message.AddString(_user.UniqueId);
             message.AddString(_user.Username);
             message.AddLong(_user.DateCreated);
             return message;
         }
 
-        public override void Process(Client client)
+        public void Process(Client client)
         {
             client.User = _user;
         }

@@ -1,11 +1,12 @@
 using Riptide;
+using Client = DodgeGame.Common.Manager.Client;
 using DodgeGame.Common.Game;
 
 namespace DodgeGame.Common.Packets.Clientbound
 {
-    public class SpawnPlayerPacket : Packet
+    public class SpawnPlayerPacket : Packet, IClientPacket
     {
-        public override ushort Id => PacketIds.Clientbound.SpawnPlayer;
+        public override ushort Id => (ushort)PacketIds.Clientbound.SpawnPlayer;
 
         public string UniqueId { get; private set; } = string.Empty;
         public string Name { get; private set; } = string.Empty;
@@ -50,7 +51,7 @@ namespace DodgeGame.Common.Packets.Clientbound
 
         public override Message Serialize()
         {
-            var message = Message.Create(MessageSendMode.Reliable, PacketIds.Clientbound.SpawnPlayer);
+            var message = Message.Create(MessageSendMode.Reliable, Id);
             message.AddString(UniqueId);
             message.AddString(Name);
             message.AddByte(Kills);
@@ -60,7 +61,7 @@ namespace DodgeGame.Common.Packets.Clientbound
             return message;
         }
 
-        public override void Process(Manager.Client client)
+        public void Process(Client client)
         {
             // Clientbound packet: handled by client to spawn other players.
         }
