@@ -11,6 +11,7 @@ namespace DodgeGame.Common.Packets
             public const ushort GameList = 5;
             public const ushort GameJoin = 6;
             public const ushort ClientAuth = 7;
+            public const ushort LeaveRoom = 8;
         }
 
         public static class Clientbound
@@ -23,6 +24,8 @@ namespace DodgeGame.Common.Packets
             public const ushort Movement = 1006;
             public const ushort GameList = 1007;
             public const ushort ClientAuth = 1008;
+            public const ushort PlayerJoin = 1009; 
+            public const ushort PlayerQuit = 1010;
         }
     }
 }
