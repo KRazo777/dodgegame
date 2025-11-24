@@ -13,8 +13,9 @@ public class CreateGameHandler : MonoBehaviour
     
     [Header("UI Transition")]
     public GameObject createRoomPage; 
-    public GameObject lobbyPage; 
-    
+    public GameObject lobbyPage;
+
+    private RoomJoinHandler _roomJoinHandler;
     private ServerConnection _serverConnection;
     private Button _button;
     

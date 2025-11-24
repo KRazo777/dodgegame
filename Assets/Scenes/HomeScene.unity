@@ -500,7 +500,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -62.5}
+  m_AnchoredPosition: {x: 400, y: -62.5}
   m_SizeDelta: {x: 700, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &235828249
@@ -588,7 +588,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 15.407715}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1153,8 +1153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 400}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -0.000015259, y: 0}
+  m_SizeDelta: {x: 800, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &505245629
 MonoBehaviour:
@@ -1510,6 +1510,7 @@ GameObject:
   - component: {fileID: 725819516}
   - component: {fileID: 725819515}
   - component: {fileID: 725819514}
+  - component: {fileID: 725819517}
   m_Layer: 0
   m_Name: CreateRoomButton
   m_TagString: Untagged
@@ -1619,6 +1620,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725819512}
   m_CullTransparentMesh: 1
+--- !u!114 &725819517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725819512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e66815f8acf14b72bb80ae99e76c5b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _passwordInputObject: {fileID: 632033817}
+  createRoomPage: {fileID: 981382189}
+  lobbyPage: {fileID: 505245627}
 --- !u!1 &733388654
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,7 +2544,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -475}
+  m_AnchoredPosition: {x: 400, y: -475}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1152463626
@@ -2641,7 +2657,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1195220811}
   - component: {fileID: 1195220810}
-  - component: {fileID: 1195220813}
   - component: {fileID: 1195220812}
   m_Layer: 0
   m_Name: NetworkManager
@@ -2694,22 +2709,6 @@ MonoBehaviour:
   lobbyPage: {fileID: 505245627}
   playerListText: {fileID: 1561099552}
   gameSceneName: GameScene
---- !u!114 &1195220813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1195220809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e66815f8acf14b72bb80ae99e76c5b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roomNameInput: {fileID: 0}
-  passwordInput: {fileID: 0}
-  createRoomPage: {fileID: 0}
-  lobbyPage: {fileID: 505245627}
 --- !u!1 &1264116683
 GameObject:
   m_ObjectHideFlags: 0
@@ -4167,7 +4166,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -275}
+  m_AnchoredPosition: {x: 400, y: -275}
   m_SizeDelta: {x: 600, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1561099552
@@ -4470,6 +4469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ddc1fc8f98045c48b6d245416a42d33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RefreshGameListSecondsInterval: 2
 --- !u!1 &1607719886
 GameObject:
   m_ObjectHideFlags: 0

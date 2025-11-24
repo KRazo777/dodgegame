@@ -12,6 +12,8 @@ namespace DodgeGame.Client
     {
         private readonly PacketHandler _packetHandler;
         private readonly ClientConnection _clientConnection;
+        private readonly RoomJoinHandler _roomJoinHandler;
+        
         public readonly List<GameRoom> FoundRooms = new List<GameRoom>();
         
         public Action OnAuthSuccess { get; set; }
@@ -30,6 +32,8 @@ namespace DodgeGame.Client
             _packetHandler.RegisterClientbound<GameListPacket>();
             _packetHandler.RegisterClientbound<ClientAuthenticatedPacket>();
             _packetHandler.RegisterClientbound<CreatedRoomPacket>();
+
+            _roomJoinHandler = GameObject.FindWithTag("NetworkManager").GetComponent<RoomJoinHandler>();
         }
 
         public void Connected(object? sender, EventArgs args)
@@ -73,7 +77,14 @@ namespace DodgeGame.Client
             if (messageId == PacketIds.Clientbound.ClientAuth)
             {
                 if (OnAuthSuccess != null) OnAuthSuccess();
+            }
+
+            if (messageId == PacketIds.Clientbound.CreatedRoom)
+            {
+                var createdRoom = (CreatedRoomPacket)packet;
+                Debug.Log("Created room with id " + createdRoom.GameRoom.RoomId + " with owner " + createdRoom.GameRoom.OwnerName);
                 
+                _roomJoinHandler.UpdateLobbyDisplay(createdRoom.GameRoom);
             }
         }
     }
