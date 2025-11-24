@@ -8,8 +8,6 @@ public class BulletScript : MonoBehaviour
     private Rigidbody2D rb;
     public float force = 3f;
 
-    private int bounceCount = 0;
-    public int maxBounces = 5; 
     void Start()
     {
         mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
@@ -39,23 +37,10 @@ public class BulletScript : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Default") || 
-            collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
-        {
-            
-            Vector2 direction = rb.linearVelocity.normalized;
-
-            rb.linearVelocity = direction * force;
-
-            if (bounceCount < 10) 
-            {
-                bounceCount++;
-            }
-            else 
-            {
-                Destroy(gameObject);
-            }
-            
-        }
+		if (collision.collider.CompareTag("Player"))
+		{
+			Destroy(collision.collider.gameObject);
+			Destroy(gameObject);
+		}
     }
 }
