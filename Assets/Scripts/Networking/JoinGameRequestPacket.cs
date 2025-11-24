@@ -30,11 +30,6 @@ namespace DodgeGame.Common.Packets.Serverbound
         }
         
         public override void Deserialize(Message message) { /* Client doesnts deserialize outgoing packets */ }
-        
-        //  method signature must match the abstract base class EXACTLY BRUH
-        public override void Process(DodgeGame.Common.Manager.Client client) 
-        { 
-            /* Client doesn't process outgoing packets */ 
-        }
+       
     }
 }

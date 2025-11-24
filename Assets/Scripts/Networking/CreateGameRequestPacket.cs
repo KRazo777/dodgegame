@@ -35,6 +35,5 @@ namespace DodgeGame.Common.Packets.Serverbound
         
         // we use the full namespace path to satisfy the compiler.
         public override void Deserialize(Message message) { /* Client doesn't deserialize outgoing packets */ }
-        public override void Process(DodgeGame.Common.Manager.Client client) { /* Not used on the client */ }
     }
 }

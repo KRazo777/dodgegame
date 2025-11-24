@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using DodgeGame.Common.Game;
 using DodgeGame.Common.Packets;
+using DodgeGame.Common.Packets.Clientbound;
 using Riptide;
-using TMPro;
 using UnityEngine;
-using GameListPacket = DodgeGame.Common.Packets.Clientbound.GameListPacket;
 
 namespace DodgeGame.Client
 {
@@ -21,8 +20,16 @@ namespace DodgeGame.Client
         {
             _packetHandler = new PacketHandler();
             _clientConnection = clientConnection;
-
             
+            _packetHandler.RegisterClientbound<HandshakePacket>();
+            _packetHandler.RegisterClientbound<PongPacket>();
+            _packetHandler.RegisterClientbound<JoinGameConfirmedPacket>();
+            _packetHandler.RegisterClientbound<PlayerDetailsPacket>();
+            _packetHandler.RegisterClientbound<SpawnPlayerPacket>();
+            _packetHandler.RegisterClientbound<MovementPacket>();
+            _packetHandler.RegisterClientbound<GameListPacket>();
+            _packetHandler.RegisterClientbound<ClientAuthenticatedPacket>();
+            _packetHandler.RegisterClientbound<CreatedRoomPacket>();
         }
 
         public void Connected(object? sender, EventArgs args)
@@ -40,10 +47,10 @@ namespace DodgeGame.Client
 
         public void HandlePacket(object? sender, MessageReceivedEventArgs args)
         {
-            var messageId = args.MessageId;
+            var messageId = (PacketIds.Clientbound) args.MessageId;
             var message = args.Message;
 
-            var packet = _packetHandler.CreateClientboundInstance(messageId);
+            var packet = _packetHandler.CreateClientboundInstance((ushort)messageId);
             if (packet == null)
             {
                 // throw some message / error
@@ -53,7 +60,7 @@ namespace DodgeGame.Client
             Debug.Log("Received packet " + messageId + " from server");
 
             packet.Deserialize(message);
-            if (_clientConnection.Client != null) packet.Process(_clientConnection.Client);
+            if (_clientConnection.Client != null) ((IClientPacket)packet).Process(_clientConnection.Client);
 
             if (messageId == PacketIds.Clientbound.GameList)
             {

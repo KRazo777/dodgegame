@@ -61,14 +61,14 @@ public class GameListRenderer : MonoBehaviour
     {
         if (_shownRooms.Count > 0)
         {
-            Debug.Log(_shownRooms[0].RoomName);
-            Debug.Log(_gameRoomObject.transform.Find("RoomName"));
-            // foreach (var comp in _gameRoomObject.transform.Find("RoomName").GetComponents<>())
-            // {
-            //     Debug.Log(comp);
-            // }
-            Debug.Log(_gameRoomObject.transform.Find("RoomName").GetComponent<TMP_Text>());
-            _gameRoomObject.transform.Find("RoomName").GetComponent<TMP_Text>().text = _shownRooms[0].RoomName;
+            // Debug.Log(_shownRooms[0].RoomName);
+            // Debug.Log(_gameRoomObject.transform.Find("RoomName"));
+            // // foreach (var comp in _gameRoomObject.transform.Find("RoomName").GetComponents<>())
+            // // {
+            // //     Debug.Log(comp);
+            // // }
+            // Debug.Log(_gameRoomObject.transform.Find("RoomName").GetComponent<TMP_Text>());
+            // _gameRoomObject.transform.Find("RoomName").GetComponent<TMP_Text>().text = _shownRooms[0].RoomName;
         }
     }
 }

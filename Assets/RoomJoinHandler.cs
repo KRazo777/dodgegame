@@ -59,7 +59,7 @@ public class RoomJoinHandler : MonoBehaviour
 
         if (playerListText != null && _roomToJoin != null)
         {
-             playerListText.text = $"Attempting to join room: {_roomToJoin.RoomName}\n\nWaiting for server confirmation...";
+             playerListText.text = $"Attempting to join room: {_roomToJoin.OwnerName}\n\nWaiting for server confirmation...";
         }
     }
     
@@ -77,7 +77,7 @@ public class RoomJoinHandler : MonoBehaviour
         }
 
         // update UI
-        playerListText.text = $"Room: {updatedRoom.RoomName}\nPlayers: {updatedRoom.Players.Count}/4\n\n{players}";
+        playerListText.text = $"Room: {updatedRoom.OwnerName}\nPlayers: {updatedRoom.Players.Count}/4\n\n{players}";
         
         // autostart logic
         if (updatedRoom.Players.Count >= 4)

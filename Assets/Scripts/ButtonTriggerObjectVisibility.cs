@@ -33,7 +33,7 @@ public class ButtonTriggerObjectVisibility : MonoBehaviour
         {
             return;
         }
-        objectToToggle!.SetActive(toggleTo);
-        parentObject?.transform.gameObject.SetActive(toggleParentTo);
+        if (objectToToggle != null) objectToToggle!.SetActive(toggleTo);
+        if (parentObject != null) parentObject.transform.gameObject.SetActive(toggleParentTo);
     }
 }
