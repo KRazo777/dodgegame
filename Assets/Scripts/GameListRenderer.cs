@@ -18,7 +18,7 @@ public class GameListRenderer : MonoBehaviour
         _serverConnection = GameObject.Find("NetworkManager").GetComponent<ServerConnection>();
         _shownRooms = _serverConnection.ClientConnection.ConnectionHandler.FoundRooms.ToList();
         Debug.Log(_shownRooms.Count);
-        
+
         _gameRoomObject = GameObject.Find("Game");
         updateObject();
     }
@@ -29,6 +29,7 @@ public class GameListRenderer : MonoBehaviour
         if (_shownRooms.Count != _serverConnection.ClientConnection.ConnectionHandler.FoundRooms.Count)
         {
             _shownRooms = _serverConnection.ClientConnection.ConnectionHandler.FoundRooms.ToList();
+            Debug.Log(_shownRooms.Count);
             updateObject();
         }
     }

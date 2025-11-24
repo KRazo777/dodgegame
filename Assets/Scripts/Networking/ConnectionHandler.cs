@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using DodgeGame.Common.Game;
 using DodgeGame.Common.Packets;
 using Riptide;
+using TMPro;
+using UnityEngine;
 using GameListPacket = DodgeGame.Common.Packets.Clientbound.GameListPacket;
 
 namespace DodgeGame.Client
@@ -10,26 +12,30 @@ namespace DodgeGame.Client
     public class ConnectionHandler
     {
         private readonly PacketHandler _packetHandler;
-        private ClientConnection _clientConnection;
+        private readonly ClientConnection _clientConnection;
         public readonly List<GameRoom> FoundRooms = new List<GameRoom>();
+        
+        public Action OnAuthSuccess { get; set; }
 
         public ConnectionHandler(ClientConnection clientConnection)
         {
             _packetHandler = new PacketHandler();
             _clientConnection = clientConnection;
+
+            
         }
 
         public void Connected(object? sender, EventArgs args)
         {
             _clientConnection.Connection.CanQualityDisconnect = false;
             _clientConnection.Client = new Common.Manager.Client(_clientConnection.Connection);
-            UnityEngine.Debug.Log("Connected and sent handshake");
+            Debug.Log("Connected and sent handshake");
         }
 
         public void Disconnected(object? sender, DisconnectedEventArgs args)
         {
             _clientConnection.Client = null;
-            UnityEngine.Debug.Log("Disconnected from server");
+            Debug.Log("Disconnected from server");
         }
 
         public void HandlePacket(object? sender, MessageReceivedEventArgs args)
@@ -44,7 +50,7 @@ namespace DodgeGame.Client
                 return;
             }
 
-            UnityEngine.Debug.Log("Received packet " + messageId + " from server");
+            Debug.Log("Received packet " + messageId + " from server");
 
             packet.Deserialize(message);
             if (_clientConnection.Client != null) packet.Process(_clientConnection.Client);
@@ -54,6 +60,13 @@ namespace DodgeGame.Client
                 var gameList = (GameListPacket)packet;
                 FoundRooms.Clear();
                 FoundRooms.AddRange(gameList.GameRooms);
+                return;
+            }
+
+            if (messageId == PacketIds.Clientbound.ClientAuth)
+            {
+                if (OnAuthSuccess != null) OnAuthSuccess();
+                
             }
         }
     }
