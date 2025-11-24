@@ -24,7 +24,7 @@ public class RestServer
     };
 
     private Task? _listenerTask;
-    private readonly ConcurrentDictionary<string, TokenRecord> _tokens = new();
+    public readonly ConcurrentDictionary<string, TokenRecord> Tokens = new();
 
     public RestServer(params string[] prefixes)
     {
@@ -159,7 +159,7 @@ public class RestServer
         if (context.Request.HttpMethod.Equals("GET", StringComparison.OrdinalIgnoreCase))
         {
             var tokenQuery = context.Request.QueryString["token"];
-            var record = _tokens.Values.FirstOrDefault(tr => tr != null && tr.Token.Equals(tokenQuery), null);
+            var record = Tokens.Values.FirstOrDefault(tr => tr != null && tr.Token.Equals(tokenQuery), null);
             if (record == null)
             {
                 await WriteJsonAsync(context.Response, HttpStatusCode.NotFound, new { error = "Token not found" })
@@ -222,7 +222,7 @@ public class RestServer
                 return;
             }
 
-            if (!_tokens.ContainsKey(payload.UserId))
+            if (!Tokens.ContainsKey(payload.UserId))
             {
                 await WriteJsonAsync(context.Response, HttpStatusCode.NotFound, new { error = "User token not found" })
                     .ConfigureAwait(false);
@@ -241,7 +241,7 @@ public class RestServer
     private void SetOrCreateToken(string token, string userId)
     {
         var tokenRecord = new TokenRecord(token, userId);
-        _tokens[userId] = tokenRecord;
+        Tokens[userId] = tokenRecord;
     }
 
     private bool IsAuthorized(HttpListenerRequest request)

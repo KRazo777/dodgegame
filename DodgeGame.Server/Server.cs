@@ -11,8 +11,9 @@ public class Server
     public static Riptide.Server GameServer;
     public static ConnectionHandler ConnectionHandler { get; } = new();
     public static ConcurrentDictionary<string, GameRoom> GameRooms { get; } = new();
-    
     public static SupabaseClient SupabaseClient { get; } = new();
+    
+    public static RestServer RestServer { get; } = new RestServer("http://localhost:5000/");
 
     public static async Task Main(string[] args)
     {
@@ -36,9 +37,8 @@ public class Server
             eventArgs.Cancel = true;
             cancellationTokenSource.Cancel();
         };
-
-        var restServer = new RestServer("http://localhost:5000/");
-        var restTask = restServer.StartAsync(cancellationTokenSource.Token);
+        
+        var restTask = RestServer.StartAsync(cancellationTokenSource.Token);
 
         while (!cancellationTokenSource.IsCancellationRequested)
         {
@@ -47,7 +47,7 @@ public class Server
             Thread.Sleep(1);
         }
 
-        await restServer.StopAsync();
+        await RestServer.StopAsync();
         GameServer.Stop();
         await restTask;
     }

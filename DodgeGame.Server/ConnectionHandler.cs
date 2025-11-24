@@ -1,3 +1,4 @@
+using DodgeGame.Common;
 using DodgeGame.Common.Game;
 using DodgeGame.Server.Networking;
 using Riptide;
@@ -88,6 +89,7 @@ public class ConnectionHandler
 
         if (messageId == PacketIds.Serverbound.GameList)
         {
+            Console.WriteLine(Server.GameRooms.Values.ToArray());
             client.Connection.Send(new GameListPacket(Server.GameRooms.Values.ToArray()).Serialize());
             return;
         }
@@ -109,6 +111,38 @@ public class ConnectionHandler
             var handshake = (HandshakePacket)packet;
             Console.WriteLine("Received handshake from " + handshake.Username);
             return;
+        }
+
+        if (messageId == PacketIds.Serverbound.ClientAuth)
+        {
+            var auth = (ClientAuthenticationPacket)packet;
+            var token = auth.Token.Substring(0, auth.Token.Length - 1);
+            Console.WriteLine("Received auth token " + token);
+            Console.WriteLine(Server.RestServer.Tokens.Count);
+            if (!Server.RestServer.Tokens.IsEmpty)
+            {
+                Console.WriteLine(Server.RestServer.Tokens.First());
+            }
+            var record = Server.RestServer.Tokens.Values.FirstOrDefault(tr => tr != null && tr.Token.Equals(token), null);
+            if (record == null)
+            {
+                Console.WriteLine("Token not found");
+                return;
+            }
+
+            var user = Server.SupabaseClient.AdminAuth.GetUserById(record.UserId).GetAwaiter().GetResult();
+            Console.WriteLine("User " + user?.UserMetadata["username"] + " logged in");
+            if (user == null)
+            {
+                Console.WriteLine("User not found");
+                return;
+            }
+
+            var createdUser = new User(user.Id, user.UserMetadata["username"] as string,
+                (long)(user.CreatedAt - new DateTime(1970, 1, 1)).TotalMilliseconds);
+            
+            client.Connection.Send(new ClientAuthenticatedPacket(createdUser).Serialize());
+            
         }
 
         // Send an acknowledgement back to the client for the received packet.

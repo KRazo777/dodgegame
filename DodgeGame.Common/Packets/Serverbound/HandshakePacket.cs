@@ -40,8 +40,7 @@ namespace DodgeGame.Common.Packets.Serverbound
 
         public override void Process(Client client)
         {
-            // Attach the provided user data to the connected client.
-            client.User = new User(UniqueId, Username, DateCreated);
+            
         }
     }
 }

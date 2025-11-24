@@ -17,6 +17,7 @@ namespace DodgeGame.Common.Packets
             RegisterServerbound<SB.JoinGameRequestPacket>();
             RegisterServerbound<SB.MovementPacket>();
             RegisterServerbound<SB.GameListPacket>();
+            RegisterServerbound<SB.ClientAuthenticationPacket>();
 
             RegisterClientbound<CB.HandshakePacket>();
             RegisterClientbound<CB.PongPacket>();
@@ -25,6 +26,7 @@ namespace DodgeGame.Common.Packets
             RegisterClientbound<CB.SpawnPlayerPacket>();
             RegisterClientbound<CB.MovementPacket>();
             RegisterClientbound<CB.GameListPacket>();
+            RegisterClientbound<CB.ClientAuthenticatedPacket>();
         }
 
         public Packet? CreateServerboundInstance(ushort messageId)
