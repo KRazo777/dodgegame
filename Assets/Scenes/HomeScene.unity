@@ -715,6 +715,7 @@ MonoBehaviour:
   toggleTo: 1
   parentObject: {fileID: 1592425613}
   toggleParentTo: 0
+  _button: {fileID: 0}
 --- !u!1 &505245627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1245,6 +1246,7 @@ MonoBehaviour:
   toggleTo: 1
   parentObject: {fileID: 1592425613}
   toggleParentTo: 0
+  _button: {fileID: 0}
 --- !u!1 &900001351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1833,13 +1835,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1048223334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c836d623221048bea28495c12f674195, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ffd09f9bb3e2b34ebbf7c1744ef9c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectToToggle: {fileID: 505245627}
   toggleTo: 1
   parentObject: {fileID: 177061112}
   toggleParentTo: 0
+  _button: {fileID: 0}
 --- !u!1 &1071045683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2108,6 +2111,7 @@ MonoBehaviour:
   toggleTo: 1
   parentObject: {fileID: 505245627}
   toggleParentTo: 0
+  _button: {fileID: 0}
 --- !u!114 &1152463627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3380,6 +3384,7 @@ MonoBehaviour:
   toggleTo: 1
   parentObject: {fileID: 2113637120}
   toggleParentTo: 0
+  _button: {fileID: 0}
 --- !u!114 &1345862742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3404,7 +3409,7 @@ GameObject:
   - component: {fileID: 1359245608}
   - component: {fileID: 1359245607}
   - component: {fileID: 1359245606}
-  - component: {fileID: 1359245605}
+  - component: {fileID: 1359245609}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -3432,22 +3437,6 @@ RectTransform:
   m_AnchoredPosition: {x: 1280, y: -905}
   m_SizeDelta: {x: 350, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1359245605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1359245603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c836d623221048bea28495c12f674195, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToToggle: {fileID: 1592425613}
-  toggleTo: 1
-  parentObject: {fileID: 177061112}
-  toggleParentTo: 0
 --- !u!114 &1359245606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3530,6 +3519,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359245603}
   m_CullTransparentMesh: 1
+--- !u!114 &1359245609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359245603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffd09f9bb3e2b34ebbf7c1744ef9c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToToggle: {fileID: 1592425613}
+  toggleTo: 1
+  parentObject: {fileID: 177061112}
+  toggleParentTo: 0
+  _button: {fileID: 0}
 --- !u!1 &1445157097
 GameObject:
   m_ObjectHideFlags: 0

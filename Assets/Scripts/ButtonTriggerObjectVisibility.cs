@@ -12,10 +12,10 @@ public class ButtonTriggerObjectVisibility : MonoBehaviour
     public GameObject parentObject;
     public bool toggleParentTo;
     
-    private Button _button;
+    public Button _button;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Start()
     {
         _button = GetComponent<Button>();
         _button.onClick.AddListener(SwitchScene);
