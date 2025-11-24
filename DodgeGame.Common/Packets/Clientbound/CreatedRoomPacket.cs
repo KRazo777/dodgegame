@@ -55,6 +55,7 @@ namespace DodgeGame.Common.Packets.Clientbound
         {
             client.User.Player = _hostPlayer;
             client.User.Player.GameRoom = _gameRoom;
+            client.User.Player.GameRoom.Players.TryAdd(_hostPlayer.Id, _hostPlayer);
         }
     }
 }
