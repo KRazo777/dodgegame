@@ -10,4 +10,10 @@ public class LoadingSpinnerScript : MonoBehaviour
     {
         transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
     }
+
+    // you can use this code to show the loading spinner when you start loading
+    // LoadingPage.SetActive(true);
+
+    // Once u load in disable it
+    // LoadingPage.SetActive(false);
 }
