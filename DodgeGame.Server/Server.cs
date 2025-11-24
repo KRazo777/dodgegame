@@ -1,5 +1,7 @@
-﻿using DodgeGame.Common.Game;
+using System.Collections.Concurrent;
+using DodgeGame.Common.Game;
 using DodgeGame.Common.Manager;
+using DodgeGame.Server.Authentication;
 using Riptide.Utils;
 
 namespace DodgeGame.Server;
@@ -8,12 +10,17 @@ public class Server
 {
     public static Riptide.Server GameServer;
     public static ConnectionHandler ConnectionHandler { get; } = new();
-    public static Dictionary<string, GameRoom> GameRooms { get; } = new();
-    public static void Main(string[] args)
+    public static ConcurrentDictionary<string, GameRoom> GameRooms { get; } = new();
+    
+    public static SupabaseClient SupabaseClient { get; } = new();
+
+    public static async Task Main(string[] args)
     {
+        await SupabaseClient.Initialize();
+        
         RiptideLogger.Initialize(Console.WriteLine, Console.WriteLine, Console.WriteLine, Console.WriteLine, false);
         GameServer = new Riptide.Server();
-        
+
         GameServer.Start(2442, ushort.MaxValue - 1, 0, false);
 
         GameServer.ClientConnected += ConnectionHandler.OnClientConnect;
@@ -21,13 +28,28 @@ public class Server
         GameServer.MessageReceived += ConnectionHandler.OnMessageReceived;
 
         var devRoom = new GameRoom("DEV-UUID", "devroom", "DEV ROOM");
-        GameRooms.Add(devRoom.RoomId, devRoom);
+        GameRooms.TryAdd(devRoom.RoomId, devRoom);
 
-        while (true)
+        using var cancellationTokenSource = new CancellationTokenSource();
+        Console.CancelKeyPress += (_, eventArgs) =>
+        {
+            eventArgs.Cancel = true;
+            cancellationTokenSource.Cancel();
+        };
+
+        var restServer = new RestServer("http://localhost:5000/");
+        var restTask = restServer.StartAsync(cancellationTokenSource.Token);
+
+        while (!cancellationTokenSource.IsCancellationRequested)
         {
             GameServer.Update();
             ConnectionHandler.Update();
+            Thread.Sleep(1);
         }
+
+        await restServer.StopAsync();
+        GameServer.Stop();
+        await restTask;
     }
 
     public static void Disconnect(Client client)
