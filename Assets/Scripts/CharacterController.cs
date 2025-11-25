@@ -21,6 +21,10 @@ public class CharacterController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         _serverConnection = GetComponent<ServerConnection>();
         rb.gravityScale = 0f;
+        
+        Transform spawn = SpawnManager.Instance.GetUniqueSpawnPoint();
+        transform.position = spawn.position;
+        transform.rotation = spawn.rotation;
     }
 
     void Update()
