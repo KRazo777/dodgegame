@@ -36,6 +36,14 @@ public class RestServer
             var normalized = prefix.EndsWith('/') ? prefix : prefix + "/";
             _listener.Prefixes.Add(normalized);
         }
+
+        var dev1 = Guid.NewGuid().ToString();
+        var dev2 = Guid.NewGuid().ToString();
+        var dev3 = Guid.NewGuid().ToString();
+
+        Tokens.TryAdd(dev1, new TokenRecord("dev", dev1));
+        Tokens.TryAdd(dev2, new TokenRecord("dev1", dev2));
+        Tokens.TryAdd(dev3, new TokenRecord("dev2", dev3));
     }
 
     public Task StartAsync(CancellationToken cancellationToken)

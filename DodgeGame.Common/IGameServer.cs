@@ -10,5 +10,7 @@ namespace DodgeGame.Common
         ConcurrentDictionary<string, GameRoom> GameRooms { get; }
         
         void Disconnect(Client client);
+        
+        Client? GetClient(string uniqueId);
     }
 }

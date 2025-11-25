@@ -51,10 +51,12 @@ namespace DodgeGame.Common.Packets.Serverbound
 
             var player = new Player(client.User.UniqueId, client.User.Username, EntityType.Player);
             client.User.Player = player;
+            client.User.Player.GameRoom = room;
 
             room.Players.TryAdd(player.Id, player);
 
             client.SendPacket(new CreatedRoomPacket(room, player));
+            
         }
     }
 }

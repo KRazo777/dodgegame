@@ -13,7 +13,6 @@ public class GameServer : IGameServer
     private ConcurrentDictionary<string, GameRoom> _gameRooms = new();
     
     public readonly ConnectionHandler ConnectionHandler = new();
-    
     public Riptide.Server Server => _server;
     public ConcurrentDictionary<string, GameRoom> GameRooms => _gameRooms;
     public void Start()
@@ -25,13 +24,15 @@ public class GameServer : IGameServer
         Server.ClientConnected += ConnectionHandler.OnClientConnect;
         Server.ClientDisconnected += ConnectionHandler.OnClientDisconnect;
         Server.MessageReceived += ConnectionHandler.OnMessageReceived;
-
-        var devRoom = new GameRoom("DEV-UUID", "devroom", "DEV ROOM");
-        GameRooms.TryAdd(devRoom.RoomId, devRoom);
     }
 
     public void Disconnect(Client client)
     {
         Server.DisconnectClient(client.Connection);
+    }
+
+    public Client? GetClient(string uniqueId)
+    {
+        return ConnectionHandler.Connections.Values.FirstOrDefault(x => x.User != null && x.User.UniqueId == uniqueId);
     }
 }

@@ -15,6 +15,6 @@ namespace DodgeGame.Common
             DateCreated = dateCreated;
         }
 
-        public Player Player { get; set; }
+        public Player? Player { get; set; }
     }
 }

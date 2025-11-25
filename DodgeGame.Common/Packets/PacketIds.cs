@@ -7,27 +7,27 @@ namespace DodgeGame.Common.Packets
         {
             Handshake = 1,
             Ping = 2,
-            JoinGameRequest = 3,
-            Movement = 4,
-            GameList = 5,
-            GameJoin = 6,
-            ClientAuth = 7,
-            CreateRoom = 8,
-            BulletHit = 9
+            Movement = 3,
+            GameList = 4,
+            JoinGame = 5,
+            ClientAuth = 6,
+            CreateRoom = 7,
+            BulletHit = 8
         }
 
         public enum Clientbound : ushort
         {
             Handshake = 1001,
             Pong = 1002,
-            JoinGameConfirmed = 1003,
-            PlayerDetails = 1004,
-            SpawnPlayer = 1005,
-            Movement = 1006,
-            GameList = 1007,
-            ClientAuth = 1008,
-            CreatedRoom = 1009,
-            StartCountdown = 1010
+            PlayerDetails = 1003,
+            Movement = 1004,
+            GameList = 1005,
+            ClientAuth = 1006,
+            CreatedRoom = 1007,
+            JoinedGame = 1008,
+            PlayerAdded = 1009,
+            StartGame = 1010,
+            StartCountdown = 1011
         }
     }
 }

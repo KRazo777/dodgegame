@@ -1,4 +1,5 @@
 using System.Numerics;
+using Riptide;
 
 namespace DodgeGame.Common.Game
 {
@@ -6,8 +7,8 @@ namespace DodgeGame.Common.Game
     {
         private string UniqueId { get; }
         private EntityType EntityType { get; }
-        private Vector2 _position { get; set; }
-        private Vector2 _velocity { get; set; }
+        public Vector2 Position { get; set; }
+        public Vector2 Velocity { get; set; }
 
         protected Entity(string uniqueId, EntityType entityType)
         {

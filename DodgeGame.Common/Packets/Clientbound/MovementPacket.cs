@@ -1,3 +1,4 @@
+using System.Numerics;
 using Riptide;
 using Client = DodgeGame.Common.Manager.Client;
 
@@ -40,7 +41,7 @@ namespace DodgeGame.Common.Packets.Clientbound
 
         public void Process(Client client)
         {
-            // Clientbound packet: handled client-side to update entity positions.
+            client.User.Player.GameRoom.Players[UniqueId].Position = new Vector2(X, Y);
         }
     }
 }

@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Numerics;
 using Riptide;
 using Client = DodgeGame.Common.Manager.Client;
 
@@ -40,7 +42,16 @@ namespace DodgeGame.Common.Packets.Serverbound
 
         public void Process(IGameServer gameServer, Client client)
         {
-            // Server should update the tracked position for this client.
+            var room = client.User.Player.GameRoom;
+            if (room == null) return;
+            room.Players[UniqueId].Position = new Vector2(X, Y);
+            
+            foreach (var player in room.Players.Values)
+            {
+                var playerClient = gameServer.GetClient(player.Id);
+                if (playerClient != null) playerClient.SendPacket(
+                    new Clientbound.MovementPacket(UniqueId, X, Y));
+            }
         }
     }
 }

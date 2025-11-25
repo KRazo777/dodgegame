@@ -8,7 +8,7 @@ namespace DodgeGame.Common.Manager
     {
         private ushort _identifier;
         public Connection Connection { get; }
-        public User User { get; set; }
+        public User? User { get; set; }
 
         public Client(Connection connection)
         {
