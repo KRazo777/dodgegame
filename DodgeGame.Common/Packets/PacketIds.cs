@@ -12,7 +12,8 @@ namespace DodgeGame.Common.Packets
             GameList = 5,
             GameJoin = 6,
             ClientAuth = 7,
-            CreateRoom = 8
+            CreateRoom = 8,
+            BulletHit = 9
         }
 
         public enum Clientbound : ushort
@@ -25,7 +26,8 @@ namespace DodgeGame.Common.Packets
             Movement = 1006,
             GameList = 1007,
             ClientAuth = 1008,
-            CreatedRoom = 1009
+            CreatedRoom = 1009,
+            StartCountdown = 1010
         }
     }
 }
