@@ -10,10 +10,11 @@ public class Shooting : MonoBehaviour
     public bool canShoot = true;
     private float timer;
     public float shootCooldown = 3f;
+    private AudioSource shootsfx;
     void Start()
     {
         mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-
+        shootsfx = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -43,6 +44,7 @@ public class Shooting : MonoBehaviour
             canShoot = false;
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
             timer = 0f;
+            shootsfx.Play();
         }
 
 
