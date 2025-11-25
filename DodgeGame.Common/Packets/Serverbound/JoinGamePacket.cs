@@ -40,6 +40,7 @@ namespace DodgeGame.Common.Packets.Serverbound
 
         public void Process(IGameServer gameServer, Client client)
         {
+            if (!gameServer.GameRooms.ContainsKey(_roomId)) return;
             var room = gameServer.GameRooms[_roomId];
             if (room.Players.Count >= 4)
             {

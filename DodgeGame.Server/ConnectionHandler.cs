@@ -92,24 +92,32 @@ public class ConnectionHandler
                 Console.WriteLine(DodgeBackend.RestServer.Tokens.First());
             }
 
+            User createdUser;
             var record =
                 DodgeBackend.RestServer.Tokens.Values.FirstOrDefault(tr => tr != null && tr.Token.Equals(token));
-            if (record == null)
+            if (!token.StartsWith("dev"))
             {
-                Console.WriteLine("Token not found");
-                return;
-            }
+                if (record == null)
+                {
+                    Console.WriteLine("Token not found");
+                    return;
+                }
 
-            var user = DodgeBackend.SupabaseClient.AdminAuth.GetUserById(record.UserId).GetAwaiter().GetResult();
-            Console.WriteLine("User " + user?.UserMetadata["username"] + " logged in");
-            if (user == null)
+                var user = DodgeBackend.SupabaseClient.AdminAuth.GetUserById(record.UserId).GetAwaiter().GetResult();
+                Console.WriteLine("User " + user?.UserMetadata["username"] + " logged in");
+                if (user == null)
+                {
+                    Console.WriteLine("User not found");
+                    return;
+                }
+
+                createdUser = new User(user.Id, user.UserMetadata["username"] as string,
+                    (long)(user.CreatedAt - new DateTime(1970, 1, 1)).TotalMilliseconds);
+            }
+            else
             {
-                Console.WriteLine("User not found");
-                return;
+                createdUser = new User(record.UserId, token, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
             }
-
-            var createdUser = new User(user.Id, user.UserMetadata["username"] as string,
-                (long)(user.CreatedAt - new DateTime(1970, 1, 1)).TotalMilliseconds);
             
             client.User = createdUser;
 

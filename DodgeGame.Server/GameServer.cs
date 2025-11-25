@@ -1,15 +1,17 @@
 using System.Collections.Concurrent;
+using System.Net;
 using DodgeGame.Common;
 using DodgeGame.Common.Game;
 using DodgeGame.Common.Manager;
 using DodgeGame.Server.Authentication;
+using Riptide.Transports.Udp;
 using Riptide.Utils;
 
 namespace DodgeGame.Server;
 
 public class GameServer : IGameServer
 {
-    private Riptide.Server _server = new();
+    private Riptide.Server _server = new(new UdpServer(IPAddress.Parse("0.0.0.0")));
     private ConcurrentDictionary<string, GameRoom> _gameRooms = new();
     
     public readonly ConnectionHandler ConnectionHandler = new();
@@ -17,6 +19,7 @@ public class GameServer : IGameServer
     public ConcurrentDictionary<string, GameRoom> GameRooms => _gameRooms;
     public void Start()
     {
+        Console.WriteLine(IPAddress.Parse("0.0.0.0"));
         RiptideLogger.Initialize(Console.WriteLine, Console.WriteLine, Console.WriteLine, Console.WriteLine, false);
 
         Server.Start(2442, ushort.MaxValue - 1, 0, false);
