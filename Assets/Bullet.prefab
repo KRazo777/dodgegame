@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: 3
+  deathSoundPrefab: {fileID: 2342384291516062384, guid: 8635018c19dfc7843b50a08044cb9af7, type: 3}
 --- !u!50 &1798724554272453359
 Rigidbody2D:
   serializedVersion: 5
@@ -179,7 +180,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: dca7a29a2e1f039449dcc1308a8477ad, type: 3}
+  m_Resource: {fileID: 8300000, guid: 3106ecd7cee0e274d8a011adcb503144, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
