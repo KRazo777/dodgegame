@@ -51,8 +51,6 @@ public class CreateGameHandler : MonoBehaviour
             Debug.LogError("FATAL: Dependencies not initialized. Cannot host game.");
             return;
         }
-
-        string hostId = _serverConnection.UniqueId;
         
         string password = _passwordInput != null ? _passwordInput.text : "";
         bool isPrivate = !string.IsNullOrEmpty(password);

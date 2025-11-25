@@ -31,27 +31,9 @@ public class RoomJoinHandler : MonoBehaviour
             Debug.LogError("FATAL: NetworkManager object not found. RoomJoinHandler cannot function.");
         }
     }
+    
 
-    // This method is called by the GameListRenderer when a player clicks a room list button
-    public void JoinSelectedRoom(GameRoom room)
-    {
-        if (_serverConnection == null) return;
-        
-        _roomToJoin = room;
-        
-        //  FIX: Use the actual Riptide Client ID (ushort) 
-        ushort clientNetworkId = _serverConnection.ClientConnection.RiptideClient.Id;
-        
-        // Send the request to join the room to the authoritative server
-        //  packet now exists and is sent with the correct ushort ID.
-        _serverConnection.ClientConnection.SendToServer(
-            new JoinGameRequestPacket(clientNetworkId, _roomToJoin.RoomId));
-
-        // switcht to the lobby screen
-        OpenLobbyScreen();
-    }
-
-    private void OpenLobbyScreen()
+    public void OpenLobbyScreen()
     {
         // Hide the current menu and show the Lobby screen
         if (gamesPage != null) gamesPage.SetActive(false);
@@ -79,11 +61,5 @@ public class RoomJoinHandler : MonoBehaviour
         // update UI
         playerListText.text = $"Room: {updatedRoom.OwnerName}\nPlayers: {updatedRoom.Players.Count}/4\n\n{players}";
         
-        // autostart logic
-        if (updatedRoom.Players.Count >= 4)
-        {
-            Debug.Log("Starting Game Scene!");
-            SceneManager.LoadScene(gameSceneName);
-        }
     }
 }

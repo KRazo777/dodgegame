@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 6265854369308967664}
   - component: {fileID: 3594454788137664411}
   m_Layer: 0
-  m_Name: Text (TMP) (1)
+  m_Name: OwnerName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 3667153739084302117}
   - component: {fileID: 1043773382397899712}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: RoomId
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 1768543513168937053}
   - component: {fileID: 8968909981830373705}
   m_Layer: 0
-  m_Name: Text (TMP) (2)
+  m_Name: PlayerCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

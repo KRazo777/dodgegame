@@ -3,6 +3,7 @@ using DodgeGame.Common.Packets;
 using DodgeGame.Common.Packets.Serverbound;
 using Riptide;
 using Riptide.Utils;
+using UnityEngine;
 
 namespace DodgeGame.Client
 {

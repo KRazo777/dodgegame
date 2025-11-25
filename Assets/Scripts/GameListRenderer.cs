@@ -5,14 +5,18 @@ using DodgeGame.Common.Game;
 using TMPro;
 using UnityEngine;
 using DodgeGame.Common.Packets.Serverbound;
+using UnityEngine.UI;
 
 public class GameListRenderer : MonoBehaviour
 {
+    public GameObject GameListingPrefab;
     private ServerConnection _serverConnection;
 
-    private List<GameRoom> _shownRooms = new List<GameRoom>();
-
-    private GameObject _gameRoomObject;
+    private List<GameRoom> _shownRooms = new();
+    private List<GameObject> _gameListObjects = new();
+    
+    private RoomJoinHandler _roomJoinHandler;
+    
 
     [SerializeField] private float RefreshGameListSecondsInterval = 2f;
 
@@ -20,11 +24,10 @@ public class GameListRenderer : MonoBehaviour
     void Start()
     {
         _serverConnection = GameObject.Find("NetworkManager").GetComponent<ServerConnection>();
+        _roomJoinHandler = GameObject.Find("NetworkManager").GetComponent<RoomJoinHandler>();
         _shownRooms = _serverConnection.ClientConnection.ConnectionHandler.FoundRooms.ToList();
         Debug.Log(_shownRooms.Count);
-
-        _gameRoomObject = GameObject.Find("Game");
-        updateObject();
+        RenderGameRooms();;
 
         StartCoroutine(RefreshGameListRoutine());
     }
@@ -53,22 +56,37 @@ public class GameListRenderer : MonoBehaviour
         {
             _shownRooms = _serverConnection.ClientConnection.ConnectionHandler.FoundRooms.ToList();
             Debug.Log(_shownRooms.Count);
-            updateObject();
+            RenderGameRooms();
         }
     }
 
-    private void updateObject()
+    private void RenderGameRooms()
     {
-        if (_shownRooms.Count > 0)
+        foreach (var gameListObject in _gameListObjects)
         {
-            // Debug.Log(_shownRooms[0].RoomName);
-            // Debug.Log(_gameRoomObject.transform.Find("RoomName"));
-            // // foreach (var comp in _gameRoomObject.transform.Find("RoomName").GetComponents<>())
-            // // {
-            // //     Debug.Log(comp);
-            // // }
-            // Debug.Log(_gameRoomObject.transform.Find("RoomName").GetComponent<TMP_Text>());
-            // _gameRoomObject.transform.Find("RoomName").GetComponent<TMP_Text>().text = _shownRooms[0].RoomName;
+            Destroy(gameListObject);
+        }
+        _gameListObjects.Clear();
+        double x = -4;
+        double y = 110;
+        
+        foreach (var room in _shownRooms)
+        {
+            var roomObj = GameObject.Instantiate(GameListingPrefab, gameObject.transform);
+            var button = roomObj.GetComponent<Button>();
+            button.onClick.AddListener(() =>
+            {
+                _serverConnection.ClientConnection.SendToServer(new JoinGamePacket(room.RoomId));
+            });
+            roomObj.transform.Find("RoomId").GetComponent<TMP_Text>().text = room.RoomId;
+            roomObj.transform.Find("OwnerName").GetComponent<TMP_Text>().text = room.OwnerName;
+            roomObj.transform.Find("PlayerCount").GetComponent<TMP_Text>().text = room.Players.Count.ToString();
+            
+            roomObj.transform.localPosition = new Vector3((float)x, (float)y, 0);
+            _gameListObjects.Add(roomObj);
+            
+            y -= 90;
         }
     }
+
 }

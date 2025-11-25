@@ -7,10 +7,8 @@ using UnityEngine;
 public class ServerConnection : MonoBehaviour
 {
     public ClientConnection _clientConnection;
-    public readonly string UniqueId = Guid.NewGuid().ToString();
     
     public GameObject PlayButton;
-    
     
     private GameObject _tokenInput;
     public ClientConnection ClientConnection => _clientConnection;
