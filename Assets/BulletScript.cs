@@ -1,7 +1,15 @@
 using UnityEngine;
+using DodgeGame.Common.Packets.Serverbound;
 
 public class BulletScript : MonoBehaviour
 {
+
+    // Who fired bullet (Required for the Serverbound packet)
+    public string OwnerId { get; set; } 
+    
+    // Reference to the central networking script (ASSIGIN IN INSPECTOR/CODE)
+    public ServerConnection ServerConnection;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private Vector3 mousePosition;
     private Camera mainCamera;
@@ -38,9 +46,27 @@ public class BulletScript : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
 		if (collision.collider.CompareTag("Player"))
-		{
-			Destroy(collision.collider.gameObject);
-			Destroy(gameObject);
-		}
+        {            
+           
+            var hitPlayerIdentity = collision.collider.GetComponent<ClientPlayerIdentity>(); 
+            
+            if (hitPlayerIdentity != null)
+            {
+                // Send Serverbound packet to announce hit
+                if (ServerConnection != null)
+                {
+                    Debug.Log($"Hit detected! Sending BulletHitPacket from {OwnerId} to server.");
+
+                    ServerConnection.ClientConnection.SendToServer(
+                        new BulletHitPacket(
+                            hitPlayerIdentity.UniqueId, // ID of the player who was HIT
+                            OwnerId)                      // ID of the player who OWNS the bullet
+                    );
+                }
+            }
+            
+            
+            Destroy(gameObject);
+        }
     }
 }
