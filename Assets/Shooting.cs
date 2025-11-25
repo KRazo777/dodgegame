@@ -14,7 +14,7 @@ public class Shooting : MonoBehaviour
     {
         mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
 
-    }
+   	}
 
     // Update is called once per frame
     void Update()

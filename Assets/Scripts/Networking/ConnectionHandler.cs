@@ -144,6 +144,17 @@ namespace DodgeGame.Client
                 GameObject.Find(movement.UniqueId).GetComponent<Rigidbody2D>().linearVelocity =
                     new Vector2(movement.X, movement.Y) * 1f;
             }
+
+            if (messageId == PacketIds.Clientbound.Shoot)
+            {
+                var bullet = (ShootPacket)packet;
+                
+                GameObject obj = Object.Instantiate(_prefabHolder.bulletPrefab, new Vector3(bullet.startX, bullet.startY, 0), Quaternion.identity);
+                Rigidbody rb = obj.GetComponent<Rigidbody>();
+                rb.linearVelocity = new Vector2(bullet.velocityX, bullet.velocityY).normalized * 3f;
+                BulletScript b = obj.GetComponent<BulletScript>();
+                b.OwnerId = bullet.UniqueId;
+            }
         }
 
         private void SceneLoaded(Scene scene, LoadSceneMode mode)

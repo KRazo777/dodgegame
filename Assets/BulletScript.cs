@@ -8,7 +8,7 @@ public class BulletScript : MonoBehaviour
     public string OwnerId { get; set; } 
     
     // Reference to the central networking script (ASSIGIN IN INSPECTOR/CODE)
-    public ServerConnection ServerConnection;
+    public ServerConnection _serverConnection;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private Vector3 mousePosition;
@@ -26,6 +26,20 @@ public class BulletScript : MonoBehaviour
         Vector3 rotation = transform.position - mousePosition;
  
         rb.linearVelocity = new Vector2(direction.x, direction.y).normalized * force;
+        
+        // send shootPacket(OwnerId, x, y)
+        _serverConnection = GameObject.FindWithTag("NetworkManager").GetComponent<ServerConnection>();
+
+        _serverConnection.ClientConnection.SendToServer(
+            new ShootPacket(
+                _serverConnection.ClientConnection.Client.User.UniqueId,
+                transform.position.x,
+                transform.position.y,
+                direction.x,
+                direction.y
+            )
+        );
+
     }
 
     // Update is called once per frame
@@ -53,11 +67,11 @@ public class BulletScript : MonoBehaviour
             if (hitPlayerIdentity != null)
             {
                 // Send Serverbound packet to announce hit
-                if (ServerConnection != null)
+                if (_serverConnection != null)
                 {
                     Debug.Log($"Hit detected! Sending BulletHitPacket from {OwnerId} to server.");
 
-                    ServerConnection.ClientConnection.SendToServer(
+                    _serverConnection.ClientConnection.SendToServer(
                         new BulletHitPacket(
                             hitPlayerIdentity.UniqueId, // ID of the player who was HIT
                             OwnerId)                      // ID of the player who OWNS the bullet
