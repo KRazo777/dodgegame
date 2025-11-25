@@ -3,7 +3,7 @@ using Client = DodgeGame.Common.Manager.Client;
 
 namespace DodgeGame.Common.Packets.Clientbound
 {
-    public class StartCountdownPacket : Packet
+    public class StartCountdownPacket : Packet, IClientPacket
     {
         public override ushort Id => (ushort)PacketIds.Clientbound.StartCountdown; 
 

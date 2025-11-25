@@ -3,7 +3,7 @@ using Client = DodgeGame.Common.Manager.Client;
 
 namespace DodgeGame.Common.Packets.Serverbound
 {
-    public class BulletHitPacket : Packet
+    public class BulletHitPacket : Packet , IServerPacket
     {
         public override ushort Id => (ushort)PacketIds.Serverbound.BulletHit;
 
@@ -32,9 +32,9 @@ namespace DodgeGame.Common.Packets.Serverbound
             return message;
         }
 
-        public void Process(Client client)
+        public void Process(IGameServer server, Client client)
         {
-            // Server logic will handle this to validate the hit and announce EndRound
+            
         }
     }
 }
