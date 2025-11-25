@@ -26,6 +26,8 @@ public class BulletScript : MonoBehaviour
         Vector3 rotation = transform.position - mousePosition;
  
         rb.linearVelocity = new Vector2(direction.x, direction.y).normalized * force;
+        
+        ServerConnection = GameObject.FindWithTag("NetworkManager").GetComponent<ServerConnection>();
     }
 
     // Update is called once per frame
@@ -48,21 +50,16 @@ public class BulletScript : MonoBehaviour
 		if (collision.collider.CompareTag("Player"))
         {            
            
-            var hitPlayerIdentity = collision.collider.GetComponent<ClientPlayerIdentity>(); 
-            
-            if (hitPlayerIdentity != null)
+            // Send Serverbound packet to announce hit
+            if (ServerConnection != null)
             {
-                // Send Serverbound packet to announce hit
-                if (ServerConnection != null)
-                {
-                    Debug.Log($"Hit detected! Sending BulletHitPacket from {OwnerId} to server.");
+                Debug.Log($"Hit {collision.collider.gameObject.name} detected! Sending BulletHitPacket from {OwnerId} to server.");
 
-                    ServerConnection.ClientConnection.SendToServer(
-                        new BulletHitPacket(
-                            hitPlayerIdentity.UniqueId, // ID of the player who was HIT
-                            OwnerId)                      // ID of the player who OWNS the bullet
-                    );
-                }
+                ServerConnection.ClientConnection.SendToServer(
+                    new BulletHitPacket(
+                        collision.collider.gameObject.name, // ID of the player who was HIT
+                        OwnerId)                      // ID of the player who OWNS the bullet
+                );
             }
             
             

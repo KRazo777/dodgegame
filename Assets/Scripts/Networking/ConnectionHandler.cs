@@ -37,6 +37,8 @@ namespace DodgeGame.Client
             _packetHandler.RegisterClientbound<ClientAuthenticatedPacket>();
             _packetHandler.RegisterClientbound<CreatedRoomPacket>();
             _packetHandler.RegisterClientbound<StartGamePacket>();
+            _packetHandler.RegisterClientbound<PlayerDeathPacket>();
+            _packetHandler.RegisterClientbound<BulletFiredPacket>();
 
             _roomJoinHandler = GameObject.FindWithTag("NetworkManager").GetComponent<RoomJoinHandler>();
             _prefabHolder = GameObject.FindWithTag("NetworkManager").GetComponent<PrefabHolder>();
@@ -142,7 +144,26 @@ namespace DodgeGame.Client
                 Debug.Log(GameObject.Find(movement.UniqueId));
                 Debug.Log(movement.X + " " + movement.Y);
                 GameObject.Find(movement.UniqueId).GetComponent<Rigidbody2D>().linearVelocity =
-                    new Vector2(movement.X, movement.Y) * 1f;
+                    new Vector2(movement.X, movement.Y) * 5f;
+            }
+
+            if (messageId == PacketIds.Clientbound.PlayerDeath)
+            {
+                var death = (PlayerDeathPacket)packet;
+                GameObject.Find(death.UniqueId).SetActive(false);
+            }
+
+            if (messageId == PacketIds.Clientbound.BulletFired)
+            {
+                var bulletFired = (BulletFiredPacket)packet;
+                Debug.Log("Bullet fired from " + bulletFired.OwnerId);
+                var bullet = Object.Instantiate(_prefabHolder.bulletPrefab, new Vector3(bulletFired.X, bulletFired.Y, -1),
+                    Quaternion.identity);
+                
+                bullet.GetComponent<BulletScript>().OwnerId = bulletFired.OwnerId;
+                bullet.transform.rotation = new Quaternion(bulletFired.RotationX, bulletFired.RotationY, bulletFired.RotationZ, bulletFired.RotationW);
+                Debug.Log($"Rotation: {bullet.transform.rotation.eulerAngles.x} {bullet.transform.rotation.eulerAngles.y} {bullet.transform.rotation.eulerAngles.z}");
+                Debug.Log($"Rotation: {bullet.transform.rotation}");
             }
         }
 
