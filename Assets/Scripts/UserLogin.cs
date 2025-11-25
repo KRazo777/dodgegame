@@ -10,6 +10,7 @@ public class UserLogin : MonoBehaviour
     private Button _button;
     private GameObject _textInputObject;
     private TMP_Text _inputtedText;
+    AudioSource clickenter;
 
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,10 +23,12 @@ public class UserLogin : MonoBehaviour
         _textInputObject = GameObject.Find("TokenInput");
         _inputtedText = _textInputObject.transform.Find("Text Area").Find("Text").GetComponent<TMP_Text>();
 
+        clickenter = GetComponent<AudioSource>();
     }
 
     private void OnClick()
     {
+        clickenter.Play();
         Debug.Log("Clicked");
         Debug.Log(_inputtedText.text);
         _serverConnection.ClientConnection.SendToServer(
