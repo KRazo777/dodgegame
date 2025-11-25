@@ -1,3 +1,5 @@
+using System;
+using DodgeGame.Common.Packets.Clientbound;
 using Riptide;
 using Client = DodgeGame.Common.Manager.Client;
 
@@ -26,7 +28,7 @@ namespace DodgeGame.Common.Packets.Serverbound
 
         public override Message Serialize()
         {
-            var message = Message.Create(MessageSendMode.Reliable, PacketIds.Serverbound.BulletHit);
+            var message = Message.Create(MessageSendMode.Reliable, Id);
             message.AddString(HitPlayerUniqueId);
             message.AddString(BulletOwnerUniqueId);
             return message;
@@ -34,7 +36,24 @@ namespace DodgeGame.Common.Packets.Serverbound
 
         public void Process(IGameServer server, Client client)
         {
+            var ownerClient = server.GetClient(BulletOwnerUniqueId);
+
+            var room = ownerClient?.User?.Player?.GameRoom;
+            if (room == null) return;
+
+            // We only want to believe it when the host sends it
+            if (client.User.UniqueId != room.HostUniqueId) return;
             
+            Console.WriteLine("Bullet hit " + HitPlayerUniqueId);
+
+            room.Players[HitPlayerUniqueId].IsAlive = false;
+            room.Players[BulletOwnerUniqueId].Kills++;
+            
+            foreach (var playersValue in room.Players.Values)
+            {
+                var playerClient = server.GetClient(playersValue.Id);
+                if (playerClient != null) playerClient.SendPacket(new PlayerDeathPacket(HitPlayerUniqueId, BulletOwnerUniqueId));
+            }
         }
     }
 }

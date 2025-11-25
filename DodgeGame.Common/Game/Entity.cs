@@ -8,7 +8,7 @@ namespace DodgeGame.Common.Game
         private string UniqueId { get; }
         private EntityType EntityType { get; }
         public Vector2 Position { get; set; }
-        public Vector2 Velocity { get; set; }
+        public Vector3 Rotation { get; set; }
 
         protected Entity(string uniqueId, EntityType entityType)
         {

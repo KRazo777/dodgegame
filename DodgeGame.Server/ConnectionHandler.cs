@@ -6,6 +6,7 @@ using Client = DodgeGame.Common.Manager.Client;
 using DodgeGame.Common.Packets;
 using DodgeGame.Common.Packets.Clientbound;
 using DodgeGame.Common.Packets.Serverbound;
+using BulletFiredPacket = DodgeGame.Common.Packets.Serverbound.BulletFiredPacket;
 using GameListPacket = DodgeGame.Common.Packets.Serverbound.GameListPacket;
 using HandshakePacket = DodgeGame.Common.Packets.Serverbound.HandshakePacket;
 using MovementPacket = DodgeGame.Common.Packets.Serverbound.MovementPacket;
@@ -31,6 +32,7 @@ public class ConnectionHandler
         _packetHandler.RegisterServerbound<CreateRoomPacket>();
         _packetHandler.RegisterServerbound<JoinGamePacket>();
         _packetHandler.RegisterServerbound<BulletHitPacket>();
+        _packetHandler.RegisterServerbound<BulletFiredPacket>();
     }
 
     public void OnClientConnect(object? sender, ServerConnectedEventArgs args)
