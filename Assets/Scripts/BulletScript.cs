@@ -10,6 +10,8 @@ public class BulletScript : MonoBehaviour
     // Reference to the central networking script (ASSIGIN IN INSPECTOR/CODE)
     public ServerConnection ServerConnection;
 
+    public int maxBounces = 3;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private Vector3 mousePosition;
     private Camera mainCamera;
@@ -45,7 +47,7 @@ public class BulletScript : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {
 		if (collision.collider.CompareTag("Player"))
         {            

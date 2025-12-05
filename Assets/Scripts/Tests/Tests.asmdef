@@ -1,17 +1,20 @@
 {
-    "name": "Tests",
+    "name": "DodgeGame.Tests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "DodgeGame.Runtime"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll"
+        "nunit.framework.dll",
+        "DodgeGame.Common.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [
