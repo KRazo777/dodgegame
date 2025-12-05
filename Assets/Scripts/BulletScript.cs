@@ -11,6 +11,7 @@ public class BulletScript : MonoBehaviour
     public ServerConnection ServerConnection;
 
     public int maxBounces = 3;
+    private int bounceCount = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private Vector3 mousePosition;
@@ -49,6 +50,13 @@ public class BulletScript : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
+
+        if (collision == null)
+        {
+            HandleBounce();
+            return;
+        }
+
 		if (collision.collider.CompareTag("Player"))
         {            
            
@@ -65,6 +73,34 @@ public class BulletScript : MonoBehaviour
             }
             
             
+            Destroy(gameObject);
+        }
+        else
+        {
+            // Handle bounce logic for boucning off walls/objects
+            HandleBounce();
+        }
+    }
+
+    private void HandleBounce()
+    {
+        bounceCount++;
+        if (bounceCount >= maxBounces)
+        {
+            SafeDestroy();
+        }
+    }
+
+    private void SafeDestroy()
+    {
+        // If we are in the Editor and NOT playing, use DestroyImmediate for testing
+        if (!Application.isPlaying)
+        {
+            DestroyImmediate(gameObject);
+        }
+        else
+        {
+            // Normal game behavior
             Destroy(gameObject);
         }
     }
