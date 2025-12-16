@@ -99,3 +99,10 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+*.DS_Store
+*.vscode/
+/[Aa]sets/.DS_Store
+/[Aa]ssets/Plugins/.DS_Store
+/[Aa]ssets/Scripts/.DS_Store
+dodgegame.slnx

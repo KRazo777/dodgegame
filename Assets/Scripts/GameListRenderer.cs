@@ -52,10 +52,15 @@ public class GameListRenderer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_shownRooms.Count != _serverConnection.ClientConnection.ConnectionHandler.FoundRooms.Count)
+        if (Input.GetKeyDown(KeyCode.T))
         {
-            _shownRooms = _serverConnection.ClientConnection.ConnectionHandler.FoundRooms.ToList();
-            Debug.Log(_shownRooms.Count);
+            Debug.Log("TEST: Manually adding a mock room...");
+            
+            var mockRoom = new GameRoom("host_123", "MOCK-ROOM", "Test User");
+            
+            mockRoom.Players.Add("player_1", new Player("player_1", "Test User", EntityType.Player));
+
+            _shownRooms.Add(mockRoom);
             RenderGameRooms();
         }
     }
