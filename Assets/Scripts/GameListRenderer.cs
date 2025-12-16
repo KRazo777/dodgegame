@@ -4,31 +4,23 @@ using System.Collections;
 using DodgeGame.Common.Game;
 using TMPro;
 using UnityEngine;
-using DodgeGame.Common.Packets.Serverbound;
 using UnityEngine.UI;
+using DodgeGame.Common.Packets.Serverbound; // Needed for RequestGameListPacket
 
 public class GameListRenderer : MonoBehaviour
 {
     public GameObject GameListingPrefab;
     private ServerConnection _serverConnection;
 
-    private List<GameRoom> _shownRooms = new();
-    private List<GameObject> _gameListObjects = new();
-    
-    private RoomJoinHandler _roomJoinHandler;
-    
+    private List<GameObject> _spawnedButtons = new();
+    private string _lastSignature = "";
 
-    [SerializeField] private float RefreshGameListSecondsInterval = 2f;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _serverConnection = GameObject.Find("NetworkManager").GetComponent<ServerConnection>();
-        _roomJoinHandler = GameObject.Find("NetworkManager").GetComponent<RoomJoinHandler>();
-        _shownRooms = _serverConnection.ClientConnection.ConnectionHandler.FoundRooms.ToList();
-        Debug.Log(_shownRooms.Count);
-        RenderGameRooms();;
-
+        
+        if (GameListingPrefab == null) Debug.LogError("GameListingPrefab is missing in Inspector");
+        
         StartCoroutine(RefreshGameListRoutine());
     }
 
@@ -36,62 +28,76 @@ public class GameListRenderer : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(RefreshGameListSecondsInterval);
-
-            Debug.Log("REFRESHING GAME LIST");
-            RequestGameList();
-
+            // Ask Server for the list
+            _serverConnection.ClientConnection.SendToServer(new RequestGameListPacket());
+            yield return new WaitForSeconds(2f);
         }
     }
 
-    void RequestGameList()
-    {
-        _serverConnection.ClientConnection.SendToServer(new GameListPacket());
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Debug.Log("TEST: Manually adding a mock room...");
-            
-            var mockRoom = new GameRoom("host_123", "MOCK-ROOM", "Test User");
-            
-            mockRoom.Players.Add("player_1", new Player("player_1", "Test User", EntityType.Player));
+        var handler = _serverConnection.ClientConnection.ConnectionHandler;
+        var rooms = handler.FoundRooms;
 
-            _shownRooms.Add(mockRoom);
-            RenderGameRooms();
+        // debugging, Print count every frame so we KNOW if the UI sees the data
+        if (rooms.Count > 0) 
+        {
+            // Only print this once every 60 frames to avoid spamming too hard
+            if (Time.frameCount % 60 == 0) 
+                Debug.Log($" UI WATCHER: I see {rooms.Count} rooms in memory.");
+        }
+
+        // Check for changes
+        string newSignature = string.Join(",", rooms.Select(r => r.RoomId));
+        
+        if (_lastSignature != newSignature)
+        {
+            Debug.Log($" UI updating! Old: '{_lastSignature}' -> New: '{newSignature}'");
+            _lastSignature = newSignature;
+            Render(rooms);
         }
     }
 
-    private void RenderGameRooms()
+    void Render(List<GameRoom> rooms)
     {
-        foreach (var gameListObject in _gameListObjects)
+        // Wipe old buttons
+        foreach (var btn in _spawnedButtons) Destroy(btn);
+        _spawnedButtons.Clear();
+
+        float y = 120f; // Start position
+
+        foreach (var room in rooms)
         {
-            Destroy(gameListObject);
-        }
-        _gameListObjects.Clear();
-        double x = -4;
-        double y = 110;
+            Debug.Log($" Spawning Button for: {room.RoomId}");
+            
+            GameObject obj = Instantiate(GameListingPrefab, transform);
+            
+            obj.transform.localPosition = new Vector3(0, y, 0);
+            obj.transform.localScale = Vector3.one; 
+            obj.transform.localRotation = Quaternion.identity;
+            
         
-        foreach (var room in _shownRooms)
-        {
-            var roomObj = GameObject.Instantiate(GameListingPrefab, gameObject.transform);
-            var button = roomObj.GetComponent<Button>();
-            button.onClick.AddListener(() =>
+            SetText(obj, "RoomId", room.RoomId);
+            SetText(obj, "OwnerName", room.OwnerName);
+            SetText(obj, "PlayerCount", room.Players.Count.ToString());
+
+            // Add Click Listener
+            obj.GetComponent<Button>().onClick.AddListener(() =>
             {
+                Debug.Log($"Joining {room.RoomId}...");
                 _serverConnection.ClientConnection.SendToServer(new JoinGamePacket(room.RoomId));
             });
-            roomObj.transform.Find("RoomId").GetComponent<TMP_Text>().text = room.RoomId;
-            roomObj.transform.Find("OwnerName").GetComponent<TMP_Text>().text = room.OwnerName;
-            roomObj.transform.Find("PlayerCount").GetComponent<TMP_Text>().text = room.Players.Count.ToString();
-            
-            roomObj.transform.localPosition = new Vector3((float)x, (float)y, 0);
-            _gameListObjects.Add(roomObj);
-            
-            y -= 90;
+
+            _spawnedButtons.Add(obj);
+            y -= 90f; // Move down
         }
     }
 
+    // Helper to safely set text
+    void SetText(GameObject parent, string childName, string content)
+    {
+        var child = parent.transform.Find(childName);
+        if (child != null) child.GetComponent<TMP_Text>().text = content;
+        else Debug.LogWarning($"Prefab Warning: Could not find child named '{childName}'");
+    }
 }
