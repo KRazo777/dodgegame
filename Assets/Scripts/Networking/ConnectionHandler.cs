@@ -151,16 +151,16 @@ namespace DodgeGame.Client
 
                 // HANDLE OTHER PLAYERS 
                 GameObject playerObj = GameObject.Find(movement.UniqueId);
-                
                 if (playerObj != null)
                 {
-                    // Turn off physics for them so they don't drift
                     var rb = playerObj.GetComponent<Rigidbody2D>();
                     if (rb) rb.isKinematic = true; 
 
-                    // Teleport them to the correct server position
-                    // (We can add smoothing later if its jittery)
-                    playerObj.transform.position = new Vector3(movement.X, movement.Y, -1);
+                    var interpolator = playerObj.GetComponent<NetworkInterpolator>();
+                    if (interpolator == null) interpolator = playerObj.AddComponent<NetworkInterpolator>();
+
+                    //  UPDATE TARGET 
+                    interpolator.UpdateTargetPosition(new Vector2(movement.X, movement.Y));
                 }
             }
 
