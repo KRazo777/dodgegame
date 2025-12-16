@@ -141,10 +141,27 @@ namespace DodgeGame.Client
             if (messageId == PacketIds.Clientbound.Movement)
             {
                 var movement = (MovementPacket)packet;
-                Debug.Log(GameObject.Find(movement.UniqueId));
-                Debug.Log(movement.X + " " + movement.Y);
-                GameObject.Find(movement.UniqueId).GetComponent<Rigidbody2D>().linearVelocity =
-                    new Vector2(movement.X, movement.Y) * 5f;
+
+            
+                if (_clientConnection.Client != null && 
+                    movement.UniqueId == _clientConnection.Client.User.UniqueId) 
+                {
+                    return; 
+                }
+
+                // HANDLE OTHER PLAYERS 
+                GameObject playerObj = GameObject.Find(movement.UniqueId);
+                
+                if (playerObj != null)
+                {
+                    // Turn off physics for them so they don't drift
+                    var rb = playerObj.GetComponent<Rigidbody2D>();
+                    if (rb) rb.isKinematic = true; 
+
+                    // Teleport them to the correct server position
+                    // (We can add smoothing later if its jittery)
+                    playerObj.transform.position = new Vector3(movement.X, movement.Y, -1);
+                }
             }
 
             if (messageId == PacketIds.Clientbound.PlayerDeath)
