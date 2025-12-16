@@ -7,9 +7,9 @@ using DodgeGame.Common.Packets;
 using DodgeGame.Common.Packets.Clientbound;
 using DodgeGame.Common.Packets.Serverbound;
 using BulletFiredPacket = DodgeGame.Common.Packets.Serverbound.BulletFiredPacket;
-using GameListPacket = DodgeGame.Common.Packets.Serverbound.GameListPacket;
 using HandshakePacket = DodgeGame.Common.Packets.Serverbound.HandshakePacket;
 using MovementPacket = DodgeGame.Common.Packets.Serverbound.MovementPacket;
+using RequestGamePacket = DodgeGame.Common.Packets.Serverbound.RequestGameListPacket;
 
 namespace DodgeGame.Server;
 
@@ -27,7 +27,7 @@ public class ConnectionHandler
         _packetHandler.RegisterServerbound<HandshakePacket>();
         _packetHandler.RegisterServerbound<PingPacket>();
         _packetHandler.RegisterServerbound<MovementPacket>();
-        _packetHandler.RegisterServerbound<GameListPacket>();
+        _packetHandler.RegisterServerbound<RequestGameListPacket>();
         _packetHandler.RegisterServerbound<ClientAuthenticationPacket>();
         _packetHandler.RegisterServerbound<CreateRoomPacket>();
         _packetHandler.RegisterServerbound<JoinGamePacket>();
