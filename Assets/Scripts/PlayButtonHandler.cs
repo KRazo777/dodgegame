@@ -18,6 +18,6 @@ public class PlayButtonHandler : MonoBehaviour
 
     private void RequestGameList()
     {
-        _serverConnection.ClientConnection.SendToServer(new GameListPacket());
+        _serverConnection.ClientConnection.SendToServer(new RequestGameListPacket());
     }
 }

@@ -80,7 +80,7 @@ namespace DodgeGame.Client
             if (messageId == PacketIds.Clientbound.GameList)
             {
                 var gameList = (GameListPacket)packet;
-                Debug.Log($"Got {gameList.GameRooms} gamerooms");
+                Debug.Log($"Got {gameList.GameRooms.Length} gamerooms");
                 FoundRooms.Clear();
                 FoundRooms.AddRange(gameList.GameRooms);
                 return;
