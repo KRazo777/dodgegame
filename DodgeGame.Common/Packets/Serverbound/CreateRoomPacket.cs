@@ -1,8 +1,9 @@
 using DodgeGame.Common.Game;
-using DodgeGame.Common.Packets.Clientbound;
-using DodgeGame.Common.Util;
+using DodgeGame.Common.Packets.Clientbound; 
 using Riptide;
+using System.Linq;
 using Client = DodgeGame.Common.Manager.Client;
+using DodgeGame.Common.Util;
 
 namespace DodgeGame.Common.Packets.Serverbound
 {
@@ -12,15 +13,9 @@ namespace DodgeGame.Common.Packets.Serverbound
 
         private string _roomPassword;
         private bool _isPrivate;
+        public CreateRoomPacket() { }
 
-        public string RoomPassword => _roomPassword;
-        public bool IsPrivate => _isPrivate;
-
-        public CreateRoomPacket()
-        {
-        }
-
-        public CreateRoomPacket(string roomPassword = "", bool isPrivate = false)
+        public CreateRoomPacket(string roomPassword, bool isPrivate)
         {
             _roomPassword = roomPassword;
             _isPrivate = isPrivate;
@@ -52,11 +47,12 @@ namespace DodgeGame.Common.Packets.Serverbound
             var player = new Player(client.User.UniqueId, client.User.Username, EntityType.Player);
             client.User.Player = player;
             client.User.Player.GameRoom = room;
-
             room.Players.TryAdd(player.Id, player);
 
             client.SendPacket(new CreatedRoomPacket(room, player));
-            
+
+            var gameListPacket = new Clientbound.GameListPacket(gameServer.GameRooms.Values.ToArray());
+            gameServer.Server.SendToAll(gameListPacket.Serialize());
         }
     }
 }
