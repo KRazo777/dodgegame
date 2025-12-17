@@ -14,7 +14,8 @@ namespace DodgeGame.Common.Packets
             CreateRoom = 7,
             BulletHit = 8,
             BulletFired = 9,
-            RequestGameList = 10
+            RequestGameList = 10,
+            LeaveGame = 11
         }
 
         public enum Clientbound : ushort

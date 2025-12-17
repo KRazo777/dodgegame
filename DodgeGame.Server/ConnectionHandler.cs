@@ -10,6 +10,7 @@ using BulletFiredPacket = DodgeGame.Common.Packets.Serverbound.BulletFiredPacket
 using HandshakePacket = DodgeGame.Common.Packets.Serverbound.HandshakePacket;
 using MovementPacket = DodgeGame.Common.Packets.Serverbound.MovementPacket;
 using RequestGamePacket = DodgeGame.Common.Packets.Serverbound.RequestGameListPacket;
+using LeaveGamePacket = DodgeGame.Common.Packets.Serverbound.LeaveGamePacket;
 
 namespace DodgeGame.Server;
 
@@ -33,6 +34,7 @@ public class ConnectionHandler
         _packetHandler.RegisterServerbound<JoinGamePacket>();
         _packetHandler.RegisterServerbound<BulletHitPacket>();
         _packetHandler.RegisterServerbound<BulletFiredPacket>();
+        _packetHandler.RegisterServerbound<LeaveGamePacket>();
     }
 
     public void OnClientConnect(object? sender, ServerConnectedEventArgs args)
@@ -44,8 +46,38 @@ public class ConnectionHandler
 
     public void OnClientDisconnect(object? sender, ServerDisconnectedEventArgs args)
     {
+        if (Connections.TryGetValue(args.Client.Id, out var client))
+        {
+            if (client.User != null && client.User.Player != null)
+            {
+                var room = client.User.Player.GameRoom;
+                if (room != null)
+                {
+                    if (room.Players.ContainsKey(client.User.UniqueId))
+                    {
+                        room.Players.Remove(client.User.UniqueId);
+                        Console.WriteLine($"[GAME] Removed {client.User.Username} from Room {room.RoomId}");
+                    }
+
+                    if (room.Players.Count == 0)
+                    {
+                        
+                        if (DodgeBackend.GameServer.GameRooms.TryRemove(room.RoomId, out _))
+                        {
+                            Console.WriteLine($"[GAME] Room {room.RoomId} is empty. Destroyed.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"[GAME] Room {room.RoomId} still has {room.Players.Count} players.");
+                    }
+                }
+            }
+        }
+
         Connections.Remove(args.Client.Id);
         _lastClientPingAt.Remove(args.Client.Id);
+        Console.WriteLine($"[NET] Client {args.Client.Id} disconnected.");
     }
 
     public void OnMessageReceived(object? sender, MessageReceivedEventArgs args)
