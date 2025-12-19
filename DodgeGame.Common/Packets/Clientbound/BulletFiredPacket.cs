@@ -1,6 +1,5 @@
-using System;
-using System.Numerics;
 using DodgeGame.Common.Game;
+using DodgeGame.Common.Manager;
 using Riptide;
 using Client = DodgeGame.Common.Manager.Client;
 
@@ -11,67 +10,48 @@ namespace DodgeGame.Common.Packets.Clientbound
         public override ushort Id => (ushort)PacketIds.Clientbound.BulletFired;
 
         public string OwnerId { get; private set; }
-        public string BulletId { get; private set; }
         public float X { get; private set; }
         public float Y { get; private set; }
-
-        public float RotationX { get; private set; }
-        public float RotationY { get; private set; }
         public float RotationZ { get; private set; }
-        public float RotationW { get; private set; }
+        public string Uid { get; private set; }
 
         public BulletFiredPacket()
         {
         }
 
-        public BulletFiredPacket(string ownerId, float x, float y, float rotationX, float rotationY, float rotationZ, float rotationW,
-            string bulletId)
+        public BulletFiredPacket(string ownerId, float x, float y, float rotationZ, string uid)
         {
             OwnerId = ownerId;
             X = x;
             Y = y;
-            RotationX = rotationX;
-            RotationY = rotationY;
             RotationZ = rotationZ;
-            RotationW = rotationW;
-            BulletId = bulletId;
+            Uid = uid;
         }
 
         public override void Deserialize(Message message)
         {
-            BulletId = message.GetString();
             OwnerId = message.GetString();
             X = message.GetFloat();
             Y = message.GetFloat();
-            RotationX = message.GetFloat();
-            RotationY = message.GetFloat();
             RotationZ = message.GetFloat();
-            RotationW = message.GetFloat();
+            Uid = message.GetString();
         }
 
         public override Message Serialize()
         {
             var message = Message.Create(MessageSendMode.Reliable, Id);
-            message.AddString(BulletId);
             message.AddString(OwnerId);
             message.AddFloat(X);
             message.AddFloat(Y);
-            message.AddFloat(RotationX);
-            message.AddFloat(RotationY);
             message.AddFloat(RotationZ);
-            message.AddFloat(RotationW);
+            message.AddString(Uid);
             return message;
         }
 
+        // ✅ FIX: Added the Process method required by the interface
         public void Process(Client client)
         {
-            var room = client.User?.Player?.GameRoom;
-            if (room == null) return;
-
-            var bullet = new Bullet(BulletId, OwnerId, EntityType.Bullet);
-            bullet.Position = new Vector2(X, Y);
-            bullet.Rotation = new Vector3(RotationX, RotationY, RotationZ);
-            room.Entities[BulletId] = bullet;
+            // We leave this empty because ConnectionHandler handles the logic manually!
         }
     }
 }
