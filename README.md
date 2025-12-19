@@ -44,7 +44,7 @@ The project is split into three major components:
     ```bash
     dotnet build
     ```
-4.  Run the server:
+4.  You must have .NET Runtime 9.0 or .NET SDK 9.0 installed on your device to run dotnet, unless your IDE has a built in system such as JetBrains Rider. It should create an exe file that you can run on Windows, or you can open the build folder and run:
     ```bash
     dotnet DodgeGame.Server.dll
     ```
