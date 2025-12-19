@@ -3,30 +3,36 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     private Camera mainCamera;
     private Vector3 mousePosition;
     private ServerConnection _serverConnection;
-    public GameObject bullet;
+    
+    public GameObject bullet; 
     public Transform bulletTransform;
+    
+    // We will find this automatically in code
+    private Collider2D playerCollider;
+    
     public bool canShoot = true;
     private float timer;
     public float shootCooldown = 3f;
+
     void Start()
     {
         mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         _serverConnection = GameObject.FindWithTag("NetworkManager").GetComponent<ServerConnection>();
+        
+        playerCollider = GetComponentInParent<Collider2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Handles the direction of the bullet BEFORE FIRING based on the mouse position
         mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 direction = mousePosition - transform.position;
 
-        Vector3 rotation = mousePosition - transform.position;
-
-        float rotz = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+        // Calculate Angle
+        float rotz = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        
         transform.rotation = Quaternion.Euler(0, 0, rotz);
 
         if (!canShoot)
@@ -39,22 +45,30 @@ public class Shooting : MonoBehaviour
             }
         }
 
-        // Handles the shooting of the bullet
         if ((Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space)) && canShoot)
         {
             canShoot = false;
-            _serverConnection.ClientConnection.SendToServer(
-                new BulletFiredPacket(
-                    _serverConnection.ClientConnection.Client.User.UniqueId,
-                    bulletTransform.position.x,
-                    bulletTransform.position.y,
-                    transform.rotation.x,
-                    transform.rotation.y,
-                    transform.rotation.z,
-                    transform.rotation.w));
+            string myId = _serverConnection.ClientConnection.Client.User.UniqueId;
+
+            // SPAWN BULLET (Keep -90 offset ONLY for the bullet sprite)
+            GameObject localBullet = Instantiate(bullet, bulletTransform.position, Quaternion.Euler(0, 0, rotz - 90));
+            localBullet.GetComponent<BulletScript>().OwnerId = myId;
+
+            // This forces the physics engine to ignore collisions between YOU and YOUR BULLET.
+            Collider2D bulletCollider = localBullet.GetComponent<Collider2D>();
+            
+            if (playerCollider != null && bulletCollider != null)
+            {
+                Physics2D.IgnoreCollision(playerCollider, bulletCollider);
+            }
+
+            if (_serverConnection != null)
+            {
+                _serverConnection.ClientConnection.SendToServer(
+                    new BulletFiredPacket(myId, bulletTransform.position.x, bulletTransform.position.y, rotz)
+                );
+            }
             timer = 0f;
         }
-
-
     }
 }

@@ -173,14 +173,28 @@ namespace DodgeGame.Client
             if (messageId == PacketIds.Clientbound.BulletFired)
             {
                 var bulletFired = (BulletFiredPacket)packet;
-                Debug.Log("Bullet fired from " + bulletFired.OwnerId);
-                var bullet = Object.Instantiate(_prefabHolder.bulletPrefab, new Vector3(bulletFired.X, bulletFired.Y, -1),
-                    Quaternion.identity);
+
+                if (_clientConnection.Client != null && 
+                    bulletFired.OwnerId == _clientConnection.Client.User.UniqueId)
+                {
+                    return; 
+                }
+
+                Quaternion rot = Quaternion.Euler(0, 0, bulletFired.RotationZ - 90);
+                var bullet = Object.Instantiate(
+                    _prefabHolder.bulletPrefab, 
+                    new Vector3(bulletFired.X, bulletFired.Y, -1),
+                    rot 
+                );
                 
                 bullet.GetComponent<BulletScript>().OwnerId = bulletFired.OwnerId;
-                bullet.transform.rotation = new Quaternion(bulletFired.RotationX, bulletFired.RotationY, bulletFired.RotationZ, bulletFired.RotationW);
-                Debug.Log($"Rotation: {bullet.transform.rotation.eulerAngles.x} {bullet.transform.rotation.eulerAngles.y} {bullet.transform.rotation.eulerAngles.z}");
-                Debug.Log($"Rotation: {bullet.transform.rotation}");
+
+                // Keep IgnoreCollision logic here too just in case
+                GameObject shooterObject = GameObject.Find(bulletFired.OwnerId);
+                if (shooterObject != null)
+                {
+                    Physics2D.IgnoreCollision(shooterObject.GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
+                }
             }
         }
 
