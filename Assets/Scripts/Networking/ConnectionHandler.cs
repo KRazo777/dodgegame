@@ -189,7 +189,15 @@ namespace DodgeGame.Client
                 
                 bullet.GetComponent<BulletScript>().OwnerId = bulletFired.OwnerId;
 
-                // Keep IgnoreCollision logic here too just in case
+                // CHANGE SPRITE COLOR
+                var spriteRenderer = bullet.GetComponent<SpriteRenderer>();
+                
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.sprite = GetBulletSpriteForUser(bulletFired.OwnerId);
+                }
+                
+                // IgnoreCollision logic for shooter
                 GameObject shooterObject = GameObject.Find(bulletFired.OwnerId);
                 if (shooterObject != null)
                 {
@@ -224,6 +232,40 @@ namespace DodgeGame.Client
                     playerObject.tag = "Player";
                 }
             }
+        }
+
+
+        // Sorts players to decide who gets Blue vs Red
+        public Sprite GetBulletSpriteForUser(string userId)
+        {
+            if (_clientConnection.Client == null || 
+                _clientConnection.Client.User == null || 
+                _clientConnection.Client.User.Player == null) 
+            {
+                return _prefabHolder.bulletSprites[0]; // Default Red
+            }
+
+            // Get all player IDs in the room
+            var room = _clientConnection.Client.User.Player.GameRoom;
+            if (room == null) return _prefabHolder.bulletSprites[0];
+
+            List<string> sortedIds = new List<string>();
+            foreach(var p in room.Players.Values)
+            {
+                sortedIds.Add(p.Id);
+            }
+
+            // This ensures Client A and Client B both agree that "User123" is Player 1
+            sortedIds.Sort();
+
+            int index = sortedIds.IndexOf(userId);
+
+            if (index >= 0 && index < _prefabHolder.bulletSprites.Length)
+            {
+                return _prefabHolder.bulletSprites[index];
+            }
+
+            return _prefabHolder.bulletSprites[0]; // Default if logic fails
         }
     }
 }

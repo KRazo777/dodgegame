@@ -10,7 +10,6 @@ public class Shooting : MonoBehaviour
     public GameObject bullet; 
     public Transform bulletTransform;
     
-    // We will find this automatically in code
     private Collider2D playerCollider;
     
     public bool canShoot = true;
@@ -50,13 +49,16 @@ public class Shooting : MonoBehaviour
             canShoot = false;
             string myId = _serverConnection.ClientConnection.Client.User.UniqueId;
 
-            // SPAWN BULLET (Keep -90 offset ONLY for the bullet sprite)
             GameObject localBullet = Instantiate(bullet, bulletTransform.position, Quaternion.Euler(0, 0, rotz - 90));
             localBullet.GetComponent<BulletScript>().OwnerId = myId;
 
-            // This forces the physics engine to ignore collisions between YOU and YOUR BULLET.
-            Collider2D bulletCollider = localBullet.GetComponent<Collider2D>();
+            // SET MY COLOR
+            Sprite mySprite = _serverConnection.ClientConnection.ConnectionHandler.GetBulletSpriteForUser(myId);
             
+            var sr = localBullet.GetComponentInChildren<SpriteRenderer>();
+            if (sr != null) sr.sprite = mySprite;
+
+            Collider2D bulletCollider = localBullet.GetComponent<Collider2D>();
             if (playerCollider != null && bulletCollider != null)
             {
                 Physics2D.IgnoreCollision(playerCollider, bulletCollider);

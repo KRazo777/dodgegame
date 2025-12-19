@@ -2723,6 +2723,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 8453841448483677609, guid: 9ddb7359222c6ee419d4da2ddfcc5ef2, type: 3}
   bulletPrefab: {fileID: 2454120063822721966, guid: 05dc4500e5d464e3ba1b8c0c71c1fee8, type: 3}
+  bulletSprites:
+  - {fileID: -2346302928887187388, guid: 17629a0a0510e49308acbe7fb223bd6c, type: 3}
+  - {fileID: -5610905092897087379, guid: 8dee111fd645f554aa739dd1e13d4d26, type: 3}
+  - {fileID: 3397799146416039757, guid: 0f84f4921a6c4b342b7f179ede9a0642, type: 3}
+  - {fileID: -8432523126347615487, guid: 804a3832fe5a3a84e8e55749d029415c, type: 3}
 --- !u!1 &1264116683
 GameObject:
   m_ObjectHideFlags: 0
