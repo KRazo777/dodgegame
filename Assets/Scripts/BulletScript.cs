@@ -3,105 +3,59 @@ using DodgeGame.Common.Packets.Serverbound;
 
 public class BulletScript : MonoBehaviour
 {
-
-    // Who fired bullet (Required for the Serverbound packet)
     public string OwnerId { get; set; } 
-    
-    // Reference to the central networking script (ASSIGIN IN INSPECTOR/CODE)
     public ServerConnection ServerConnection;
-
     public int maxBounces = 3;
     private int bounceCount = 0;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private Vector3 mousePosition;
-    private Camera mainCamera;
     private Rigidbody2D rb;
-    public float force = 3f;
+    public float force = 10f; // Speed
 
     void Start()
     {
-        mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-        mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         rb = GetComponent<Rigidbody2D>();
-
-        Vector3 direction = mousePosition - transform.position;
-        Vector3 rotation = transform.position - mousePosition;
- 
-        rb.linearVelocity = new Vector2(direction.x, direction.y).normalized * force;
-        
         ServerConnection = GameObject.FindWithTag("NetworkManager").GetComponent<ServerConnection>();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (rb.linearVelocity != Vector2.zero)
-        {
-            // Get direction it's currently moving
-            Vector2 direction = rb.linearVelocity.normalized;
-
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-            // set bullet's rotation to match
-            transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
-        }
+        rb.linearVelocity = transform.up * force;
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision == null || collision.collider == null) return;
 
-        if (collision == null)
-        {
-            HandleBounce();
-            return;
-        }
-
-		if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player"))
         {            
-           
-            // Send Serverbound packet to announce hit
+            var hitPlayer = collision.collider.GetComponent<CharacterController>();
+            
+            // Don't kill the shooter, should phase thru
+            if (hitPlayer != null && hitPlayer.name == OwnerId) return;
+
             if (ServerConnection != null)
             {
-                Debug.Log($"Hit {collision.collider.gameObject.name} detected! Sending BulletHitPacket from {OwnerId} to server.");
-
                 ServerConnection.ClientConnection.SendToServer(
-                    new BulletHitPacket(
-                        collision.collider.gameObject.name, // ID of the player who was HIT
-                        OwnerId)                      // ID of the player who OWNS the bullet
+                    new BulletHitPacket(collision.collider.gameObject.name, OwnerId)
                 );
             }
-            
-            
             Destroy(gameObject);
         }
         else
         {
-            // Handle bounce logic for boucning off walls/objects
             HandleBounce();
         }
     }
-
+    
     private void HandleBounce()
     {
         bounceCount++;
-        if (bounceCount >= maxBounces)
-        {
-            SafeDestroy();
-        }
-    }
 
-    private void SafeDestroy()
-    {
-        // If we are in the Editor and NOT playing, use DestroyImmediate for testing
-        if (!Application.isPlaying)
+        if (rb != null)
         {
-            DestroyImmediate(gameObject);
+             // Calculate angle from velocity
+             float angle = Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg;
+             
+             // Apply offset (-90) because sprite points UP
+             transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
         }
-        else
-        {
-            // Normal game behavior
-            Destroy(gameObject);
-        }
+
+        if (bounceCount >= maxBounces) Destroy(gameObject);
     }
 }

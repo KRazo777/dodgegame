@@ -102,6 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 923905ed92bf64c2f98c76c25cc74e95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ServerConnection: {fileID: 0}
+  maxBounces: 5
   force: 3
 --- !u!50 &1798724554272453359
 Rigidbody2D:
